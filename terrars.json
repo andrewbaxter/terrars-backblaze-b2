@@ -1,0 +1,6 @@
+{
+    "provider": "backblaze/b2",
+    "version": "0.8.1",
+    "dest": "src/b2",
+	"feature_gate": "Cargo.toml"
+}
