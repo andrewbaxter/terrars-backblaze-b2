@@ -6,6 +6,8 @@ use super::provider::ProviderB2;
 
 #[derive(Serialize)]
 struct DataBucketFileData {
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    depends_on: Vec<String>,
     #[serde(skip_serializing_if = "SerdeSkipDefault::is_default")]
     provider: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -30,6 +32,11 @@ pub struct DataBucketFile(Rc<DataBucketFile_>);
 impl DataBucketFile {
     fn shared(&self) -> &StackShared {
         &self.0.shared
+    }
+
+    pub fn depends_on(self, dep: &impl Dependable) -> Self {
+        self.0.data.borrow_mut().depends_on.push(dep.extract_ref());
+        self
     }
 
     pub fn set_provider(&self, provider: &ProviderB2) -> &Self {
@@ -81,6 +88,12 @@ impl Datasource for DataBucketFile {
     }
 }
 
+impl Dependable for DataBucketFile {
+    fn extract_ref(&self) -> String {
+        Datasource::extract_ref(self)
+    }
+}
+
 impl ToListMappable for DataBucketFile {
     type O = ListRef<DataBucketFileRef>;
 
@@ -118,6 +131,7 @@ impl BuildDataBucketFile {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
             data: RefCell::new(DataBucketFileData {
+                depends_on: core::default::Default::default(),
                 provider: None,
                 for_each: None,
                 bucket_id: self.bucket_id,
