@@ -1,7 +1,7 @@
 [package]
 name = "terrars-backblaze-b2"
 edition = "2021"
-version = "0.1.5"
+version = "0.1.6"
 description = "Pre-generated Terrars B2 bindings"
 readme = "readme.md"
 license = "ISC"
