@@ -1,110 +1,138 @@
 use serde::Serialize;
-use std::cell::RefCell;
-use std::rc::Rc;
-use terrars::*;
+use terrars::{
+    Referable as _,
+    Datasource_ as _,
+    Ref as _,
+};
 use super::provider::ProviderB2;
 
 #[derive(Serialize)]
 struct DataBucketFileData {
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    depends_on: Vec<String>,
-    #[serde(skip_serializing_if = "SerdeSkipDefault::is_default")]
-    provider: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    for_each: Option<String>,
-    bucket_id: PrimField<String>,
-    file_name: PrimField<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    id: Option<PrimField<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    show_versions: Option<PrimField<bool>>,
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    depends_on: std::vec::Vec<std::string::String>,
+    #[serde(skip_serializing_if = "terrars::SerdeSkipDefault::is_default")]
+    provider: std::option::Option<std::string::String>,
+    #[serde(skip_serializing_if = "terrars::SerdeSkipDefault::is_default")]
+    lifecycle: terrars::DatasourceLifecycle,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    for_each: std::option::Option<std::string::String>,
+    bucket_id: terrars::PrimField<std::string::String>,
+    file_name: terrars::PrimField<std::string::String>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    id: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    show_versions: std::option::Option<terrars::PrimField<bool>>,
 }
 
 struct DataBucketFile_ {
-    shared: StackShared,
-    tf_id: String,
-    data: RefCell<DataBucketFileData>,
+    shared: terrars::StackShared,
+    tf_id: std::string::String,
+    data: std::cell::RefCell<DataBucketFileData>,
 }
 
 #[derive(Clone)]
-pub struct DataBucketFile(Rc<DataBucketFile_>);
+pub struct DataBucketFile(std::rc::Rc<DataBucketFile_>);
 
 impl DataBucketFile {
-    fn shared(&self) -> &StackShared {
+    fn shared(&self) -> &terrars::StackShared {
         &self.0.shared
     }
 
-    pub fn depends_on(self, dep: &impl Referable) -> Self {
+    pub fn depends_on(self, dep: &impl terrars::Referable) -> Self {
         self.0.data.borrow_mut().depends_on.push(dep.extract_ref());
         self
     }
 
     pub fn set_provider(&self, provider: &ProviderB2) -> &Self {
-        self.0.data.borrow_mut().provider = Some(provider.provider_ref());
+        self.0.data.borrow_mut().provider = std::option::Option::Some(provider.provider_ref());
         self
     }
 
-    #[doc= "Set the field `id`.\n"]
-    pub fn set_id(self, v: impl Into<PrimField<String>>) -> Self {
-        self.0.data.borrow_mut().id = Some(v.into());
+    pub fn add_lifecycle_precondition(
+        self,
+        condition: impl std::convert::Into<terrars::PrimField<bool>>,
+        error_message: impl std::convert::Into<terrars::PrimField<std::string::String>>,
+    ) -> Self {
+        self.0.data.borrow_mut().lifecycle.precondition.push(terrars::LifecycleCondition {
+            condition: condition.into(),
+            error_message: error_message.into(),
+        });
         self
     }
 
-    #[doc= "Set the field `show_versions`.\nShow all file versions."]
-    pub fn set_show_versions(self, v: impl Into<PrimField<bool>>) -> Self {
-        self.0.data.borrow_mut().show_versions = Some(v.into());
+    pub fn add_lifecycle_postcondition(
+        self,
+        condition: impl std::convert::Into<terrars::PrimField<bool>>,
+        error_message: impl std::convert::Into<terrars::PrimField<std::string::String>>,
+    ) -> Self {
+        self.0.data.borrow_mut().lifecycle.postcondition.push(terrars::LifecycleCondition {
+            condition: condition.into(),
+            error_message: error_message.into(),
+        });
         self
     }
 
-    #[doc= "Get a reference to the value of field `bucket_id` after provisioning.\nThe ID of the bucket."]
-    pub fn bucket_id(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.bucket_id", self.extract_ref()))
+    #[doc = "Set the field `id`.\n"]
+    pub fn set_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.0.data.borrow_mut().id = std::option::Option::Some(v.into());
+        self
     }
 
-    #[doc= "Get a reference to the value of field `file_name` after provisioning.\nThe file name."]
-    pub fn file_name(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.file_name", self.extract_ref()))
+    #[doc = "Set the field `show_versions`.\nShow all file versions."]
+    pub fn set_show_versions(self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
+        self.0.data.borrow_mut().show_versions = std::option::Option::Some(v.into());
+        self
     }
 
-    #[doc= "Get a reference to the value of field `file_versions` after provisioning.\nFile versions."]
-    pub fn file_versions(&self) -> ListRef<DataBucketFileFileVersionsElRef> {
-        ListRef::new(self.shared().clone(), format!("{}.file_versions", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `bucket_id` after provisioning.\nThe ID of the bucket."]
+    pub fn bucket_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.bucket_id", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `id` after provisioning.\n"]
-    pub fn id(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `file_name` after provisioning.\nThe file name."]
+    pub fn file_name(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.file_name", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `show_versions` after provisioning.\nShow all file versions."]
-    pub fn show_versions(&self) -> PrimExpr<bool> {
-        PrimExpr::new(self.shared().clone(), format!("{}.show_versions", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `file_versions` after provisioning.\nFile versions."]
+    pub fn file_versions(&self) -> terrars::ListRef<DataBucketFileFileVersionsElRef> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.file_versions", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `show_versions` after provisioning.\nShow all file versions."]
+    pub fn show_versions(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.show_versions", self.extract_ref()))
     }
 }
 
-impl Referable for DataBucketFile {
-    fn extract_ref(&self) -> String {
+impl terrars::Referable for DataBucketFile {
+    fn extract_ref(&self) -> std::string::String {
         format!("data.{}.{}", self.0.extract_datasource_type(), self.0.extract_tf_id())
     }
 }
 
-impl Datasource for DataBucketFile { }
+impl terrars::Datasource for DataBucketFile { }
 
-impl ToListMappable for DataBucketFile {
-    type O = ListRef<DataBucketFileRef>;
+impl terrars::ToListMappable for DataBucketFile {
+    type O = terrars::ListRef<DataBucketFileRef>;
 
-    fn do_map(self, base: String) -> Self::O {
-        self.0.data.borrow_mut().for_each = Some(format!("${{{}}}", base));
-        ListRef::new(self.0.shared.clone(), self.extract_ref())
+    fn do_map(self, base: std::string::String) -> Self::O {
+        self.0.data.borrow_mut().for_each = std::option::Option::Some(format!("${{{}}}", base));
+        terrars::ListRef::new(self.0.shared.clone(), self.extract_ref())
     }
 }
 
-impl Datasource_ for DataBucketFile_ {
-    fn extract_datasource_type(&self) -> String {
+impl terrars::Datasource_ for DataBucketFile_ {
+    fn extract_datasource_type(&self) -> std::string::String {
         "b2_bucket_file".into()
     }
 
-    fn extract_tf_id(&self) -> String {
+    fn extract_tf_id(&self) -> std::string::String {
         self.tf_id.clone()
     }
 
@@ -114,22 +142,23 @@ impl Datasource_ for DataBucketFile_ {
 }
 
 pub struct BuildDataBucketFile {
-    pub tf_id: String,
-    #[doc= "The ID of the bucket."]
-    pub bucket_id: PrimField<String>,
-    #[doc= "The file name."]
-    pub file_name: PrimField<String>,
+    pub tf_id: std::string::String,
+    #[doc = "The ID of the bucket."]
+    pub bucket_id: terrars::PrimField<std::string::String>,
+    #[doc = "The file name."]
+    pub file_name: terrars::PrimField<std::string::String>,
 }
 
 impl BuildDataBucketFile {
-    pub fn build(self, stack: &mut Stack) -> DataBucketFile {
-        let out = DataBucketFile(Rc::new(DataBucketFile_ {
+    pub fn build(self, stack: &mut terrars::Stack) -> DataBucketFile {
+        let out = DataBucketFile(std::rc::Rc::new(DataBucketFile_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: RefCell::new(DataBucketFileData {
+            data: std::cell::RefCell::new(DataBucketFileData {
                 depends_on: core::default::Default::default(),
-                provider: None,
-                for_each: None,
+                provider: std::option::Option::None,
+                lifecycle: core::default::Default::default(),
+                for_each: std::option::Option::None,
                 bucket_id: self.bucket_id,
                 file_name: self.file_name,
                 id: core::default::Default::default(),
@@ -142,12 +171,12 @@ impl BuildDataBucketFile {
 }
 
 pub struct DataBucketFileRef {
-    shared: StackShared,
-    base: String,
+    shared: terrars::StackShared,
+    base: std::string::String,
 }
 
-impl Ref for DataBucketFileRef {
-    fn new(shared: StackShared, base: String) -> Self {
+impl terrars::Ref for DataBucketFileRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> Self {
         Self {
             shared: shared,
             base: base,
@@ -156,67 +185,67 @@ impl Ref for DataBucketFileRef {
 }
 
 impl DataBucketFileRef {
-    fn shared(&self) -> &StackShared {
+    fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
-    fn extract_ref(&self) -> String {
+    fn extract_ref(&self) -> std::string::String {
         self.base.clone()
     }
 
-    #[doc= "Get a reference to the value of field `bucket_id` after provisioning.\nThe ID of the bucket."]
-    pub fn bucket_id(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.bucket_id", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `bucket_id` after provisioning.\nThe ID of the bucket."]
+    pub fn bucket_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.bucket_id", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `file_name` after provisioning.\nThe file name."]
-    pub fn file_name(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.file_name", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `file_name` after provisioning.\nThe file name."]
+    pub fn file_name(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.file_name", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `file_versions` after provisioning.\nFile versions."]
-    pub fn file_versions(&self) -> ListRef<DataBucketFileFileVersionsElRef> {
-        ListRef::new(self.shared().clone(), format!("{}.file_versions", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `file_versions` after provisioning.\nFile versions."]
+    pub fn file_versions(&self) -> terrars::ListRef<DataBucketFileFileVersionsElRef> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.file_versions", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `id` after provisioning.\n"]
-    pub fn id(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `show_versions` after provisioning.\nShow all file versions."]
-    pub fn show_versions(&self) -> PrimExpr<bool> {
-        PrimExpr::new(self.shared().clone(), format!("{}.show_versions", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `show_versions` after provisioning.\nShow all file versions."]
+    pub fn show_versions(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.show_versions", self.extract_ref()))
     }
 }
 
 #[derive(Serialize)]
 pub struct DataBucketFileFileVersionsElServerSideEncryptionEl {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    algorithm: Option<PrimField<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    mode: Option<PrimField<String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    algorithm: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    mode: std::option::Option<terrars::PrimField<std::string::String>>,
 }
 
 impl DataBucketFileFileVersionsElServerSideEncryptionEl {
-    #[doc= "Set the field `algorithm`.\n"]
-    pub fn set_algorithm(mut self, v: impl Into<PrimField<String>>) -> Self {
-        self.algorithm = Some(v.into());
+    #[doc = "Set the field `algorithm`.\n"]
+    pub fn set_algorithm(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.algorithm = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc= "Set the field `mode`.\n"]
-    pub fn set_mode(mut self, v: impl Into<PrimField<String>>) -> Self {
-        self.mode = Some(v.into());
+    #[doc = "Set the field `mode`.\n"]
+    pub fn set_mode(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.mode = std::option::Option::Some(v.into());
         self
     }
 }
 
-impl ToListMappable for DataBucketFileFileVersionsElServerSideEncryptionEl {
-    type O = BlockAssignable<DataBucketFileFileVersionsElServerSideEncryptionEl>;
+impl terrars::ToListMappable for DataBucketFileFileVersionsElServerSideEncryptionEl {
+    type O = terrars::BlockAssignable<DataBucketFileFileVersionsElServerSideEncryptionEl>;
 
-    fn do_map(self, base: String) -> Self::O {
-        BlockAssignable::Dynamic(DynamicBlock {
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
             for_each: format!("${{{}}}", base),
             iterator: "each".into(),
             content: self,
@@ -236,12 +265,15 @@ impl BuildDataBucketFileFileVersionsElServerSideEncryptionEl {
 }
 
 pub struct DataBucketFileFileVersionsElServerSideEncryptionElRef {
-    shared: StackShared,
-    base: String,
+    shared: terrars::StackShared,
+    base: std::string::String,
 }
 
-impl Ref for DataBucketFileFileVersionsElServerSideEncryptionElRef {
-    fn new(shared: StackShared, base: String) -> DataBucketFileFileVersionsElServerSideEncryptionElRef {
+impl terrars::Ref for DataBucketFileFileVersionsElServerSideEncryptionElRef {
+    fn new(
+        shared: terrars::StackShared,
+        base: std::string::String,
+    ) -> DataBucketFileFileVersionsElServerSideEncryptionElRef {
         DataBucketFileFileVersionsElServerSideEncryptionElRef {
             shared: shared,
             base: base.to_string(),
@@ -250,123 +282,126 @@ impl Ref for DataBucketFileFileVersionsElServerSideEncryptionElRef {
 }
 
 impl DataBucketFileFileVersionsElServerSideEncryptionElRef {
-    fn shared(&self) -> &StackShared {
+    fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
-    #[doc= "Get a reference to the value of field `algorithm` after provisioning.\n"]
-    pub fn algorithm(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.algorithm", self.base))
+    #[doc = "Get a reference to the value of field `algorithm` after provisioning.\n"]
+    pub fn algorithm(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.algorithm", self.base))
     }
 
-    #[doc= "Get a reference to the value of field `mode` after provisioning.\n"]
-    pub fn mode(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.mode", self.base))
+    #[doc = "Get a reference to the value of field `mode` after provisioning.\n"]
+    pub fn mode(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.mode", self.base))
     }
 }
 
 #[derive(Serialize)]
 pub struct DataBucketFileFileVersionsEl {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    action: Option<PrimField<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    bucket_id: Option<PrimField<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    content_md5: Option<PrimField<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    content_sha1: Option<PrimField<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    content_type: Option<PrimField<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    file_id: Option<PrimField<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    file_info: Option<RecField<PrimField<String>>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    file_name: Option<PrimField<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    server_side_encryption: Option<ListField<DataBucketFileFileVersionsElServerSideEncryptionEl>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    size: Option<PrimField<f64>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    upload_timestamp: Option<PrimField<f64>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    action: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    bucket_id: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    content_md5: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    content_sha1: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    content_type: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    file_id: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    file_info: std::option::Option<terrars::RecField<terrars::PrimField<std::string::String>>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    file_name: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    server_side_encryption: std::option::Option<terrars::ListField<DataBucketFileFileVersionsElServerSideEncryptionEl>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    size: std::option::Option<terrars::PrimField<f64>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    upload_timestamp: std::option::Option<terrars::PrimField<f64>>,
 }
 
 impl DataBucketFileFileVersionsEl {
-    #[doc= "Set the field `action`.\n"]
-    pub fn set_action(mut self, v: impl Into<PrimField<String>>) -> Self {
-        self.action = Some(v.into());
+    #[doc = "Set the field `action`.\n"]
+    pub fn set_action(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.action = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc= "Set the field `bucket_id`.\n"]
-    pub fn set_bucket_id(mut self, v: impl Into<PrimField<String>>) -> Self {
-        self.bucket_id = Some(v.into());
+    #[doc = "Set the field `bucket_id`.\n"]
+    pub fn set_bucket_id(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.bucket_id = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc= "Set the field `content_md5`.\n"]
-    pub fn set_content_md5(mut self, v: impl Into<PrimField<String>>) -> Self {
-        self.content_md5 = Some(v.into());
+    #[doc = "Set the field `content_md5`.\n"]
+    pub fn set_content_md5(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.content_md5 = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc= "Set the field `content_sha1`.\n"]
-    pub fn set_content_sha1(mut self, v: impl Into<PrimField<String>>) -> Self {
-        self.content_sha1 = Some(v.into());
+    #[doc = "Set the field `content_sha1`.\n"]
+    pub fn set_content_sha1(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.content_sha1 = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc= "Set the field `content_type`.\n"]
-    pub fn set_content_type(mut self, v: impl Into<PrimField<String>>) -> Self {
-        self.content_type = Some(v.into());
+    #[doc = "Set the field `content_type`.\n"]
+    pub fn set_content_type(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.content_type = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc= "Set the field `file_id`.\n"]
-    pub fn set_file_id(mut self, v: impl Into<PrimField<String>>) -> Self {
-        self.file_id = Some(v.into());
+    #[doc = "Set the field `file_id`.\n"]
+    pub fn set_file_id(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.file_id = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc= "Set the field `file_info`.\n"]
-    pub fn set_file_info(mut self, v: impl Into<RecField<PrimField<String>>>) -> Self {
-        self.file_info = Some(v.into());
+    #[doc = "Set the field `file_info`.\n"]
+    pub fn set_file_info(
+        mut self,
+        v: impl std::convert::Into<terrars::RecField<terrars::PrimField<std::string::String>>>,
+    ) -> Self {
+        self.file_info = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc= "Set the field `file_name`.\n"]
-    pub fn set_file_name(mut self, v: impl Into<PrimField<String>>) -> Self {
-        self.file_name = Some(v.into());
+    #[doc = "Set the field `file_name`.\n"]
+    pub fn set_file_name(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.file_name = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc= "Set the field `server_side_encryption`.\n"]
+    #[doc = "Set the field `server_side_encryption`.\n"]
     pub fn set_server_side_encryption(
         mut self,
-        v: impl Into<ListField<DataBucketFileFileVersionsElServerSideEncryptionEl>>,
+        v: impl std::convert::Into<terrars::ListField<DataBucketFileFileVersionsElServerSideEncryptionEl>>,
     ) -> Self {
-        self.server_side_encryption = Some(v.into());
+        self.server_side_encryption = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc= "Set the field `size`.\n"]
-    pub fn set_size(mut self, v: impl Into<PrimField<f64>>) -> Self {
-        self.size = Some(v.into());
+    #[doc = "Set the field `size`.\n"]
+    pub fn set_size(mut self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
+        self.size = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc= "Set the field `upload_timestamp`.\n"]
-    pub fn set_upload_timestamp(mut self, v: impl Into<PrimField<f64>>) -> Self {
-        self.upload_timestamp = Some(v.into());
+    #[doc = "Set the field `upload_timestamp`.\n"]
+    pub fn set_upload_timestamp(mut self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
+        self.upload_timestamp = std::option::Option::Some(v.into());
         self
     }
 }
 
-impl ToListMappable for DataBucketFileFileVersionsEl {
-    type O = BlockAssignable<DataBucketFileFileVersionsEl>;
+impl terrars::ToListMappable for DataBucketFileFileVersionsEl {
+    type O = terrars::BlockAssignable<DataBucketFileFileVersionsEl>;
 
-    fn do_map(self, base: String) -> Self::O {
-        BlockAssignable::Dynamic(DynamicBlock {
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
             for_each: format!("${{{}}}", base),
             iterator: "each".into(),
             content: self,
@@ -395,12 +430,12 @@ impl BuildDataBucketFileFileVersionsEl {
 }
 
 pub struct DataBucketFileFileVersionsElRef {
-    shared: StackShared,
-    base: String,
+    shared: terrars::StackShared,
+    base: std::string::String,
 }
 
-impl Ref for DataBucketFileFileVersionsElRef {
-    fn new(shared: StackShared, base: String) -> DataBucketFileFileVersionsElRef {
+impl terrars::Ref for DataBucketFileFileVersionsElRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> DataBucketFileFileVersionsElRef {
         DataBucketFileFileVersionsElRef {
             shared: shared,
             base: base.to_string(),
@@ -409,62 +444,62 @@ impl Ref for DataBucketFileFileVersionsElRef {
 }
 
 impl DataBucketFileFileVersionsElRef {
-    fn shared(&self) -> &StackShared {
+    fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
-    #[doc= "Get a reference to the value of field `action` after provisioning.\n"]
-    pub fn action(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.action", self.base))
+    #[doc = "Get a reference to the value of field `action` after provisioning.\n"]
+    pub fn action(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.action", self.base))
     }
 
-    #[doc= "Get a reference to the value of field `bucket_id` after provisioning.\n"]
-    pub fn bucket_id(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.bucket_id", self.base))
+    #[doc = "Get a reference to the value of field `bucket_id` after provisioning.\n"]
+    pub fn bucket_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.bucket_id", self.base))
     }
 
-    #[doc= "Get a reference to the value of field `content_md5` after provisioning.\n"]
-    pub fn content_md5(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.content_md5", self.base))
+    #[doc = "Get a reference to the value of field `content_md5` after provisioning.\n"]
+    pub fn content_md5(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.content_md5", self.base))
     }
 
-    #[doc= "Get a reference to the value of field `content_sha1` after provisioning.\n"]
-    pub fn content_sha1(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.content_sha1", self.base))
+    #[doc = "Get a reference to the value of field `content_sha1` after provisioning.\n"]
+    pub fn content_sha1(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.content_sha1", self.base))
     }
 
-    #[doc= "Get a reference to the value of field `content_type` after provisioning.\n"]
-    pub fn content_type(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.content_type", self.base))
+    #[doc = "Get a reference to the value of field `content_type` after provisioning.\n"]
+    pub fn content_type(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.content_type", self.base))
     }
 
-    #[doc= "Get a reference to the value of field `file_id` after provisioning.\n"]
-    pub fn file_id(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.file_id", self.base))
+    #[doc = "Get a reference to the value of field `file_id` after provisioning.\n"]
+    pub fn file_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.file_id", self.base))
     }
 
-    #[doc= "Get a reference to the value of field `file_info` after provisioning.\n"]
-    pub fn file_info(&self) -> RecRef<PrimExpr<String>> {
-        RecRef::new(self.shared().clone(), format!("{}.file_info", self.base))
+    #[doc = "Get a reference to the value of field `file_info` after provisioning.\n"]
+    pub fn file_info(&self) -> terrars::RecRef<terrars::PrimExpr<std::string::String>> {
+        terrars::RecRef::new(self.shared().clone(), format!("{}.file_info", self.base))
     }
 
-    #[doc= "Get a reference to the value of field `file_name` after provisioning.\n"]
-    pub fn file_name(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.file_name", self.base))
+    #[doc = "Get a reference to the value of field `file_name` after provisioning.\n"]
+    pub fn file_name(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.file_name", self.base))
     }
 
-    #[doc= "Get a reference to the value of field `server_side_encryption` after provisioning.\n"]
-    pub fn server_side_encryption(&self) -> ListRef<DataBucketFileFileVersionsElServerSideEncryptionElRef> {
-        ListRef::new(self.shared().clone(), format!("{}.server_side_encryption", self.base))
+    #[doc = "Get a reference to the value of field `server_side_encryption` after provisioning.\n"]
+    pub fn server_side_encryption(&self) -> terrars::ListRef<DataBucketFileFileVersionsElServerSideEncryptionElRef> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.server_side_encryption", self.base))
     }
 
-    #[doc= "Get a reference to the value of field `size` after provisioning.\n"]
-    pub fn size(&self) -> PrimExpr<f64> {
-        PrimExpr::new(self.shared().clone(), format!("{}.size", self.base))
+    #[doc = "Get a reference to the value of field `size` after provisioning.\n"]
+    pub fn size(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.size", self.base))
     }
 
-    #[doc= "Get a reference to the value of field `upload_timestamp` after provisioning.\n"]
-    pub fn upload_timestamp(&self) -> PrimExpr<f64> {
-        PrimExpr::new(self.shared().clone(), format!("{}.upload_timestamp", self.base))
+    #[doc = "Get a reference to the value of field `upload_timestamp` after provisioning.\n"]
+    pub fn upload_timestamp(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.upload_timestamp", self.base))
     }
 }
