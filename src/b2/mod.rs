@@ -1,3 +1,5 @@
+ 
+
 pub mod provider;
 
 pub use provider::*;
@@ -19,6 +21,12 @@ pub mod bucket_file_version;
 
 #[cfg(feature = "bucket_file_version")]
 pub use bucket_file_version::*;
+
+#[cfg(feature = "bucket_notification_rules")]
+pub mod bucket_notification_rules;
+
+#[cfg(feature = "bucket_notification_rules")]
+pub use bucket_notification_rules::*;
 
 #[cfg(feature = "data_account_info")]
 pub mod data_account_info;
@@ -55,3 +63,9 @@ pub mod data_bucket_files;
 
 #[cfg(feature = "data_bucket_files")]
 pub use data_bucket_files::*;
+
+#[cfg(feature = "data_bucket_notification_rules")]
+pub mod data_bucket_notification_rules;
+
+#[cfg(feature = "data_bucket_notification_rules")]
+pub use data_bucket_notification_rules::*;

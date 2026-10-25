@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderB2;
 
 #[derive(Serialize)]
-struct DataBucketFileSignedUrlData {
+struct DataBucketFileSignedUrlData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "terrars::SerdeSkipDefault::is_default")]
@@ -27,7 +29,7 @@ struct DataBucketFileSignedUrlData {
 struct DataBucketFileSignedUrl_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<DataBucketFileSignedUrlData>,
+    data: std::cell::RefCell<DataBucketFileSignedUrlData_>,
 }
 
 #[derive(Clone)]
@@ -72,7 +74,7 @@ impl DataBucketFileSignedUrl {
         self
     }
 
-    #[doc = "Set the field `duration`.\nThe duration for which the presigned URL is valid"]
+    #[doc = "Set the field `duration`.\nThe duration for which the presigned URL is valid."]
     pub fn set_duration(self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
         self.0.data.borrow_mut().duration = std::option::Option::Some(v.into());
         self
@@ -90,7 +92,7 @@ impl DataBucketFileSignedUrl {
     }
 
     #[doc =
-        "Get a reference to the value of field `duration` after provisioning.\nThe duration for which the presigned URL is valid"]
+        "Get a reference to the value of field `duration` after provisioning.\nThe duration for which the presigned URL is valid."]
     pub fn duration(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.duration", self.extract_ref()))
     }
@@ -105,7 +107,8 @@ impl DataBucketFileSignedUrl {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `signed_url` after provisioning.\nThe signed URL for the given file"]
+    #[doc =
+        "Get a reference to the value of field `signed_url` after provisioning.\nThe signed URL for the given file."]
     pub fn signed_url(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.signed_url", self.extract_ref()))
     }
@@ -155,7 +158,7 @@ impl BuildDataBucketFileSignedUrl {
         let out = DataBucketFileSignedUrl(std::rc::Rc::new(DataBucketFileSignedUrl_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(DataBucketFileSignedUrlData {
+            data: std::cell::RefCell::new(DataBucketFileSignedUrlData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
@@ -200,7 +203,7 @@ impl DataBucketFileSignedUrlRef {
     }
 
     #[doc =
-        "Get a reference to the value of field `duration` after provisioning.\nThe duration for which the presigned URL is valid"]
+        "Get a reference to the value of field `duration` after provisioning.\nThe duration for which the presigned URL is valid."]
     pub fn duration(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.duration", self.extract_ref()))
     }
@@ -215,7 +218,8 @@ impl DataBucketFileSignedUrlRef {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `signed_url` after provisioning.\nThe signed URL for the given file"]
+    #[doc =
+        "Get a reference to the value of field `signed_url` after provisioning.\nThe signed URL for the given file."]
     pub fn signed_url(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.signed_url", self.extract_ref()))
     }

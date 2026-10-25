@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderB2;
 
 #[derive(Serialize)]
-struct DataBucketFilesData {
+struct DataBucketFilesData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "terrars::SerdeSkipDefault::is_default")]
@@ -30,7 +32,7 @@ struct DataBucketFilesData {
 struct DataBucketFiles_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<DataBucketFilesData>,
+    data: std::cell::RefCell<DataBucketFilesData_>,
 }
 
 #[derive(Clone)]
@@ -105,7 +107,7 @@ impl DataBucketFiles {
     }
 
     #[doc = "Get a reference to the value of field `file_versions` after provisioning.\nFile versions in the folder."]
-    pub fn file_versions(&self) -> terrars::ListRef<DataBucketFilesFileVersionsElRef> {
+    pub fn file_versions(&self) -> terrars::ListRef<DataBucketFiles_FileVersionsRef> {
         terrars::ListRef::new(self.shared().clone(), format!("{}.file_versions", self.extract_ref()))
     }
 
@@ -173,7 +175,7 @@ impl BuildDataBucketFiles {
         let out = DataBucketFiles(std::rc::Rc::new(DataBucketFiles_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(DataBucketFilesData {
+            data: std::cell::RefCell::new(DataBucketFilesData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
@@ -219,7 +221,7 @@ impl DataBucketFilesRef {
     }
 
     #[doc = "Get a reference to the value of field `file_versions` after provisioning.\nFile versions in the folder."]
-    pub fn file_versions(&self) -> terrars::ListRef<DataBucketFilesFileVersionsElRef> {
+    pub fn file_versions(&self) -> terrars::ListRef<DataBucketFiles_FileVersionsRef> {
         terrars::ListRef::new(self.shared().clone(), format!("{}.file_versions", self.extract_ref()))
     }
 
@@ -246,14 +248,14 @@ impl DataBucketFilesRef {
 }
 
 #[derive(Serialize)]
-pub struct DataBucketFilesFileVersionsElServerSideEncryptionEl {
+pub struct DataBucketFiles_FileVersions_ServerSideEncryption {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     algorithm: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     mode: std::option::Option<terrars::PrimField<std::string::String>>,
 }
 
-impl DataBucketFilesFileVersionsElServerSideEncryptionEl {
+impl DataBucketFiles_FileVersions_ServerSideEncryption {
     #[doc = "Set the field `algorithm`.\n"]
     pub fn set_algorithm(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.algorithm = std::option::Option::Some(v.into());
@@ -267,8 +269,8 @@ impl DataBucketFilesFileVersionsElServerSideEncryptionEl {
     }
 }
 
-impl terrars::ToListMappable for DataBucketFilesFileVersionsElServerSideEncryptionEl {
-    type O = terrars::BlockAssignable<DataBucketFilesFileVersionsElServerSideEncryptionEl>;
+impl terrars::ToListMappable for DataBucketFiles_FileVersions_ServerSideEncryption {
+    type O = terrars::BlockAssignable<DataBucketFiles_FileVersions_ServerSideEncryption>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -279,35 +281,37 @@ impl terrars::ToListMappable for DataBucketFilesFileVersionsElServerSideEncrypti
     }
 }
 
-pub struct BuildDataBucketFilesFileVersionsElServerSideEncryptionEl {}
+pub struct BuildDataBucketFiles_FileVersions_ServerSideEncryption {}
 
-impl BuildDataBucketFilesFileVersionsElServerSideEncryptionEl {
-    pub fn build(self) -> DataBucketFilesFileVersionsElServerSideEncryptionEl {
-        DataBucketFilesFileVersionsElServerSideEncryptionEl {
+impl BuildDataBucketFiles_FileVersions_ServerSideEncryption {
+    pub fn build(self) -> DataBucketFiles_FileVersions_ServerSideEncryption {
+        DataBucketFiles_FileVersions_ServerSideEncryption {
             algorithm: core::default::Default::default(),
             mode: core::default::Default::default(),
         }
     }
 }
 
-pub struct DataBucketFilesFileVersionsElServerSideEncryptionElRef {
+#[allow(dead_code)]
+pub struct DataBucketFiles_FileVersions_ServerSideEncryptionRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for DataBucketFilesFileVersionsElServerSideEncryptionElRef {
+impl terrars::Ref for DataBucketFiles_FileVersions_ServerSideEncryptionRef {
     fn new(
         shared: terrars::StackShared,
         base: std::string::String,
-    ) -> DataBucketFilesFileVersionsElServerSideEncryptionElRef {
-        DataBucketFilesFileVersionsElServerSideEncryptionElRef {
+    ) -> DataBucketFiles_FileVersions_ServerSideEncryptionRef {
+        DataBucketFiles_FileVersions_ServerSideEncryptionRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl DataBucketFilesFileVersionsElServerSideEncryptionElRef {
+impl DataBucketFiles_FileVersions_ServerSideEncryptionRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
@@ -324,7 +328,7 @@ impl DataBucketFilesFileVersionsElServerSideEncryptionElRef {
 }
 
 #[derive(Serialize)]
-pub struct DataBucketFilesFileVersionsEl {
+pub struct DataBucketFiles_FileVersions {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     action: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -342,14 +346,14 @@ pub struct DataBucketFilesFileVersionsEl {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     file_name: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    server_side_encryption: std::option::Option<terrars::ListField<DataBucketFilesFileVersionsElServerSideEncryptionEl>>,
+    server_side_encryption: std::option::Option<terrars::ListField<DataBucketFiles_FileVersions_ServerSideEncryption>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     size: std::option::Option<terrars::PrimField<f64>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     upload_timestamp: std::option::Option<terrars::PrimField<f64>>,
 }
 
-impl DataBucketFilesFileVersionsEl {
+impl DataBucketFiles_FileVersions {
     #[doc = "Set the field `action`.\n"]
     pub fn set_action(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.action = std::option::Option::Some(v.into());
@@ -404,7 +408,7 @@ impl DataBucketFilesFileVersionsEl {
     #[doc = "Set the field `server_side_encryption`.\n"]
     pub fn set_server_side_encryption(
         mut self,
-        v: impl std::convert::Into<terrars::ListField<DataBucketFilesFileVersionsElServerSideEncryptionEl>>,
+        v: impl std::convert::Into<terrars::ListField<DataBucketFiles_FileVersions_ServerSideEncryption>>,
     ) -> Self {
         self.server_side_encryption = std::option::Option::Some(v.into());
         self
@@ -423,8 +427,8 @@ impl DataBucketFilesFileVersionsEl {
     }
 }
 
-impl terrars::ToListMappable for DataBucketFilesFileVersionsEl {
-    type O = terrars::BlockAssignable<DataBucketFilesFileVersionsEl>;
+impl terrars::ToListMappable for DataBucketFiles_FileVersions {
+    type O = terrars::BlockAssignable<DataBucketFiles_FileVersions>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -435,11 +439,11 @@ impl terrars::ToListMappable for DataBucketFilesFileVersionsEl {
     }
 }
 
-pub struct BuildDataBucketFilesFileVersionsEl {}
+pub struct BuildDataBucketFiles_FileVersions {}
 
-impl BuildDataBucketFilesFileVersionsEl {
-    pub fn build(self) -> DataBucketFilesFileVersionsEl {
-        DataBucketFilesFileVersionsEl {
+impl BuildDataBucketFiles_FileVersions {
+    pub fn build(self) -> DataBucketFiles_FileVersions {
+        DataBucketFiles_FileVersions {
             action: core::default::Default::default(),
             bucket_id: core::default::Default::default(),
             content_md5: core::default::Default::default(),
@@ -455,21 +459,23 @@ impl BuildDataBucketFilesFileVersionsEl {
     }
 }
 
-pub struct DataBucketFilesFileVersionsElRef {
+#[allow(dead_code)]
+pub struct DataBucketFiles_FileVersionsRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for DataBucketFilesFileVersionsElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> DataBucketFilesFileVersionsElRef {
-        DataBucketFilesFileVersionsElRef {
+impl terrars::Ref for DataBucketFiles_FileVersionsRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> DataBucketFiles_FileVersionsRef {
+        DataBucketFiles_FileVersionsRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl DataBucketFilesFileVersionsElRef {
+impl DataBucketFiles_FileVersionsRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
@@ -515,7 +521,7 @@ impl DataBucketFilesFileVersionsElRef {
     }
 
     #[doc = "Get a reference to the value of field `server_side_encryption` after provisioning.\n"]
-    pub fn server_side_encryption(&self) -> terrars::ListRef<DataBucketFilesFileVersionsElServerSideEncryptionElRef> {
+    pub fn server_side_encryption(&self) -> terrars::ListRef<DataBucketFiles_FileVersions_ServerSideEncryptionRef> {
         terrars::ListRef::new(self.shared().clone(), format!("{}.server_side_encryption", self.base))
     }
 

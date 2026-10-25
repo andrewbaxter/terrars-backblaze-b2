@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderB2;
 
 #[derive(Serialize)]
-struct DataApplicationKeyData {
+struct DataApplicationKeyData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "terrars::SerdeSkipDefault::is_default")]
@@ -19,14 +21,12 @@ struct DataApplicationKeyData {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     id: std::option::Option<terrars::PrimField<std::string::String>>,
     key_name: terrars::PrimField<std::string::String>,
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    name_prefix: std::option::Option<terrars::PrimField<std::string::String>>,
 }
 
 struct DataApplicationKey_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<DataApplicationKeyData>,
+    data: std::cell::RefCell<DataApplicationKeyData_>,
 }
 
 #[derive(Clone)]
@@ -77,12 +77,6 @@ impl DataApplicationKey {
         self
     }
 
-    #[doc = "Set the field `name_prefix`.\nWhen present, restricts access to files whose names start with the prefix."]
-    pub fn set_name_prefix(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().name_prefix = std::option::Option::Some(v.into());
-        self
-    }
-
     #[doc = "Get a reference to the value of field `application_key_id` after provisioning.\nThe ID of the key."]
     pub fn application_key_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.application_key_id", self.extract_ref()))
@@ -95,9 +89,21 @@ impl DataApplicationKey {
     }
 
     #[doc =
+        "Get a reference to the value of field `bucket_ids` after provisioning.\nWhen present, restricts access to specified buckets."]
+    pub fn bucket_ids(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
+        terrars::SetRef::new(self.shared().clone(), format!("{}.bucket_ids", self.extract_ref()))
+    }
+
+    #[doc =
         "Get a reference to the value of field `capabilities` after provisioning.\nA set of strings, each one naming a capability the key has."]
     pub fn capabilities(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
         terrars::SetRef::new(self.shared().clone(), format!("{}.capabilities", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `expiration_timestamp` after provisioning.\nWhen present, says when this key will expire, in milliseconds since 1970."]
+    pub fn expiration_timestamp(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.expiration_timestamp", self.extract_ref()))
     }
 
     #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
@@ -165,14 +171,13 @@ impl BuildDataApplicationKey {
         let out = DataApplicationKey(std::rc::Rc::new(DataApplicationKey_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(DataApplicationKeyData {
+            data: std::cell::RefCell::new(DataApplicationKeyData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
                 for_each: std::option::Option::None,
                 id: core::default::Default::default(),
                 key_name: self.key_name,
-                name_prefix: core::default::Default::default(),
             }),
         }));
         stack.add_datasource(out.0.clone());
@@ -215,9 +220,21 @@ impl DataApplicationKeyRef {
     }
 
     #[doc =
+        "Get a reference to the value of field `bucket_ids` after provisioning.\nWhen present, restricts access to specified buckets."]
+    pub fn bucket_ids(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
+        terrars::SetRef::new(self.shared().clone(), format!("{}.bucket_ids", self.extract_ref()))
+    }
+
+    #[doc =
         "Get a reference to the value of field `capabilities` after provisioning.\nA set of strings, each one naming a capability the key has."]
     pub fn capabilities(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
         terrars::SetRef::new(self.shared().clone(), format!("{}.capabilities", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `expiration_timestamp` after provisioning.\nWhen present, says when this key will expire, in milliseconds since 1970."]
+    pub fn expiration_timestamp(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.expiration_timestamp", self.extract_ref()))
     }
 
     #[doc = "Get a reference to the value of field `id` after provisioning.\n"]

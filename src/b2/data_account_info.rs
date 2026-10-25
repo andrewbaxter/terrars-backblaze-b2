@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderB2;
 
 #[derive(Serialize)]
-struct DataAccountInfoData {
+struct DataAccountInfoData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "terrars::SerdeSkipDefault::is_default")]
@@ -23,7 +25,7 @@ struct DataAccountInfoData {
 struct DataAccountInfo_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<DataAccountInfoData>,
+    data: std::cell::RefCell<DataAccountInfoData_>,
 }
 
 #[derive(Clone)]
@@ -75,6 +77,12 @@ impl DataAccountInfo {
     }
 
     #[doc =
+        "Get a reference to the value of field `absolute_minimum_part_size` after provisioning.\nThe smallest possible size of a part of a large file (except the last one). This is smaller than the recommendedPartSize. If you use it, you may find that it takes longer overall to upload a large file."]
+    pub fn absolute_minimum_part_size(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.absolute_minimum_part_size", self.extract_ref()))
+    }
+
+    #[doc =
         "Get a reference to the value of field `account_auth_token` after provisioning.\nAn authorization token to use with all calls, other than b2_authorize_account, that need an Authorization header. This authorization token is valid for at most 24 hours."]
     pub fn account_auth_token(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_auth_token", self.extract_ref()))
@@ -87,7 +95,7 @@ impl DataAccountInfo {
 
     #[doc =
         "Get a reference to the value of field `allowed` after provisioning.\nAn object containing the capabilities of this auth token, and any restrictions on using it."]
-    pub fn allowed(&self) -> terrars::ListRef<DataAccountInfoAllowedElRef> {
+    pub fn allowed(&self) -> terrars::ListRef<DataAccountInfo_AllowedRef> {
         terrars::ListRef::new(self.shared().clone(), format!("{}.allowed", self.extract_ref()))
     }
 
@@ -106,6 +114,12 @@ impl DataAccountInfo {
     #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
     pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `recommended_part_size` after provisioning.\nThe recommended number of bytes in a part of a large file."]
+    pub fn recommended_part_size(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.recommended_part_size", self.extract_ref()))
     }
 
     #[doc =
@@ -155,7 +169,7 @@ impl BuildDataAccountInfo {
         let out = DataAccountInfo(std::rc::Rc::new(DataAccountInfo_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(DataAccountInfoData {
+            data: std::cell::RefCell::new(DataAccountInfoData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
@@ -192,6 +206,12 @@ impl DataAccountInfoRef {
     }
 
     #[doc =
+        "Get a reference to the value of field `absolute_minimum_part_size` after provisioning.\nThe smallest possible size of a part of a large file (except the last one). This is smaller than the recommendedPartSize. If you use it, you may find that it takes longer overall to upload a large file."]
+    pub fn absolute_minimum_part_size(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.absolute_minimum_part_size", self.extract_ref()))
+    }
+
+    #[doc =
         "Get a reference to the value of field `account_auth_token` after provisioning.\nAn authorization token to use with all calls, other than b2_authorize_account, that need an Authorization header. This authorization token is valid for at most 24 hours."]
     pub fn account_auth_token(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_auth_token", self.extract_ref()))
@@ -204,7 +224,7 @@ impl DataAccountInfoRef {
 
     #[doc =
         "Get a reference to the value of field `allowed` after provisioning.\nAn object containing the capabilities of this auth token, and any restrictions on using it."]
-    pub fn allowed(&self) -> terrars::ListRef<DataAccountInfoAllowedElRef> {
+    pub fn allowed(&self) -> terrars::ListRef<DataAccountInfo_AllowedRef> {
         terrars::ListRef::new(self.shared().clone(), format!("{}.allowed", self.extract_ref()))
     }
 
@@ -226,6 +246,12 @@ impl DataAccountInfoRef {
     }
 
     #[doc =
+        "Get a reference to the value of field `recommended_part_size` after provisioning.\nThe recommended number of bytes in a part of a large file."]
+    pub fn recommended_part_size(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.recommended_part_size", self.extract_ref()))
+    }
+
+    #[doc =
         "Get a reference to the value of field `s3_api_url` after provisioning.\nThe base URL to use for S3-compatible API calls."]
     pub fn s3_api_url(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.s3_api_url", self.extract_ref()))
@@ -233,18 +259,97 @@ impl DataAccountInfoRef {
 }
 
 #[derive(Serialize)]
-pub struct DataAccountInfoAllowedEl {
+pub struct DataAccountInfo_Allowed_Buckets {
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    id: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    name: std::option::Option<terrars::PrimField<std::string::String>>,
+}
+
+impl DataAccountInfo_Allowed_Buckets {
+    #[doc = "Set the field `id`.\n"]
+    pub fn set_id(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.id = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `name`.\n"]
+    pub fn set_name(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.name = std::option::Option::Some(v.into());
+        self
+    }
+}
+
+impl terrars::ToListMappable for DataAccountInfo_Allowed_Buckets {
+    type O = terrars::BlockAssignable<DataAccountInfo_Allowed_Buckets>;
+
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
+            for_each: format!("${{{}}}", base),
+            iterator: "each".into(),
+            content: self,
+        })
+    }
+}
+
+pub struct BuildDataAccountInfo_Allowed_Buckets {}
+
+impl BuildDataAccountInfo_Allowed_Buckets {
+    pub fn build(self) -> DataAccountInfo_Allowed_Buckets {
+        DataAccountInfo_Allowed_Buckets {
+            id: core::default::Default::default(),
+            name: core::default::Default::default(),
+        }
+    }
+}
+
+#[allow(dead_code)]
+pub struct DataAccountInfo_Allowed_BucketsRef {
+    shared: terrars::StackShared,
+    base: std::string::String,
+}
+
+impl terrars::Ref for DataAccountInfo_Allowed_BucketsRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> DataAccountInfo_Allowed_BucketsRef {
+        DataAccountInfo_Allowed_BucketsRef {
+            shared: shared,
+            base: base.to_string(),
+        }
+    }
+}
+
+impl DataAccountInfo_Allowed_BucketsRef {
+    #[allow(dead_code)]
+    fn shared(&self) -> &terrars::StackShared {
+        &self.shared
+    }
+
+    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    pub fn id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `name` after provisioning.\n"]
+    pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.base))
+    }
+}
+
+#[derive(Serialize)]
+pub struct DataAccountInfo_Allowed {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     bucket_id: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     bucket_name: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    buckets: std::option::Option<terrars::ListField<DataAccountInfo_Allowed_Buckets>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     capabilities: std::option::Option<terrars::SetField<terrars::PrimField<std::string::String>>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     name_prefix: std::option::Option<terrars::PrimField<std::string::String>>,
 }
 
-impl DataAccountInfoAllowedEl {
+impl DataAccountInfo_Allowed {
     #[doc = "Set the field `bucket_id`.\n"]
     pub fn set_bucket_id(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.bucket_id = std::option::Option::Some(v.into());
@@ -254,6 +359,15 @@ impl DataAccountInfoAllowedEl {
     #[doc = "Set the field `bucket_name`.\n"]
     pub fn set_bucket_name(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.bucket_name = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `buckets`.\n"]
+    pub fn set_buckets(
+        mut self,
+        v: impl std::convert::Into<terrars::ListField<DataAccountInfo_Allowed_Buckets>>,
+    ) -> Self {
+        self.buckets = std::option::Option::Some(v.into());
         self
     }
 
@@ -273,8 +387,8 @@ impl DataAccountInfoAllowedEl {
     }
 }
 
-impl terrars::ToListMappable for DataAccountInfoAllowedEl {
-    type O = terrars::BlockAssignable<DataAccountInfoAllowedEl>;
+impl terrars::ToListMappable for DataAccountInfo_Allowed {
+    type O = terrars::BlockAssignable<DataAccountInfo_Allowed>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -285,34 +399,37 @@ impl terrars::ToListMappable for DataAccountInfoAllowedEl {
     }
 }
 
-pub struct BuildDataAccountInfoAllowedEl {}
+pub struct BuildDataAccountInfo_Allowed {}
 
-impl BuildDataAccountInfoAllowedEl {
-    pub fn build(self) -> DataAccountInfoAllowedEl {
-        DataAccountInfoAllowedEl {
+impl BuildDataAccountInfo_Allowed {
+    pub fn build(self) -> DataAccountInfo_Allowed {
+        DataAccountInfo_Allowed {
             bucket_id: core::default::Default::default(),
             bucket_name: core::default::Default::default(),
+            buckets: core::default::Default::default(),
             capabilities: core::default::Default::default(),
             name_prefix: core::default::Default::default(),
         }
     }
 }
 
-pub struct DataAccountInfoAllowedElRef {
+#[allow(dead_code)]
+pub struct DataAccountInfo_AllowedRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for DataAccountInfoAllowedElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> DataAccountInfoAllowedElRef {
-        DataAccountInfoAllowedElRef {
+impl terrars::Ref for DataAccountInfo_AllowedRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> DataAccountInfo_AllowedRef {
+        DataAccountInfo_AllowedRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl DataAccountInfoAllowedElRef {
+impl DataAccountInfo_AllowedRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
@@ -325,6 +442,11 @@ impl DataAccountInfoAllowedElRef {
     #[doc = "Get a reference to the value of field `bucket_name` after provisioning.\n"]
     pub fn bucket_name(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.bucket_name", self.base))
+    }
+
+    #[doc = "Get a reference to the value of field `buckets` after provisioning.\n"]
+    pub fn buckets(&self) -> terrars::ListRef<DataAccountInfo_Allowed_BucketsRef> {
+        terrars::ListRef::new(self.shared().clone(), format!("{}.buckets", self.base))
     }
 
     #[doc = "Get a reference to the value of field `capabilities` after provisioning.\n"]

@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderB2;
 
 #[derive(Serialize)]
-struct ApplicationKeyData {
+struct ApplicationKeyData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -20,18 +22,22 @@ struct ApplicationKeyData {
     provisioner: std::vec::Vec<terrars::Provisioner>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     bucket_id: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    bucket_ids: std::option::Option<terrars::SetField<terrars::PrimField<std::string::String>>>,
     capabilities: terrars::SetField<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     id: std::option::Option<terrars::PrimField<std::string::String>>,
     key_name: terrars::PrimField<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     name_prefix: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    valid_duration_in_seconds: std::option::Option<terrars::PrimField<f64>>,
 }
 
 struct ApplicationKey_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<ApplicationKeyData>,
+    data: std::cell::RefCell<ApplicationKeyData_>,
 }
 
 #[derive(Clone)]
@@ -131,9 +137,20 @@ impl ApplicationKey {
         self
     }
 
-    #[doc = "Set the field `bucket_id`.\nWhen present, restricts access to one bucket."]
+    #[doc =
+        "Set the field `bucket_id`.\nWhen present, restricts access to one bucket. Conflicts with `bucket_ids`. **Modifying this attribute will force creation of a new resource.**"]
     pub fn set_bucket_id(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.0.data.borrow_mut().bucket_id = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `bucket_ids`.\nWhen provided, the new key can only access the specified buckets. Conflicts with `bucket_id`. **Modifying this attribute will force creation of a new resource.**"]
+    pub fn set_bucket_ids(
+        self,
+        v: impl std::convert::Into<terrars::SetField<terrars::PrimField<std::string::String>>>,
+    ) -> Self {
+        self.0.data.borrow_mut().bucket_ids = std::option::Option::Some(v.into());
         self
     }
 
@@ -143,9 +160,17 @@ impl ApplicationKey {
         self
     }
 
-    #[doc = "Set the field `name_prefix`.\nWhen present, restricts access to files whose names start with the prefix."]
+    #[doc =
+        "Set the field `name_prefix`.\nWhen present, restricts access to files whose names start with the prefix. **Modifying this attribute will force creation of a new resource.**"]
     pub fn set_name_prefix(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.0.data.borrow_mut().name_prefix = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `valid_duration_in_seconds`.\nWhen provided, the key will expire after the given number of seconds, and will have expirationTimestamp set. Value must be a positive integer, and must be less than 1000 days (in seconds). **Modifying this attribute will force creation of a new resource.**"]
+    pub fn set_valid_duration_in_seconds(self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
+        self.0.data.borrow_mut().valid_duration_in_seconds = std::option::Option::Some(v.into());
         self
     }
 
@@ -161,15 +186,27 @@ impl ApplicationKey {
     }
 
     #[doc =
-        "Get a reference to the value of field `bucket_id` after provisioning.\nWhen present, restricts access to one bucket."]
+        "Get a reference to the value of field `bucket_id` after provisioning.\nWhen present, restricts access to one bucket. Conflicts with `bucket_ids`. **Modifying this attribute will force creation of a new resource.**"]
     pub fn bucket_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.bucket_id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `capabilities` after provisioning.\nA set of strings, each one naming a capability the key has."]
+        "Get a reference to the value of field `bucket_ids` after provisioning.\nWhen provided, the new key can only access the specified buckets. Conflicts with `bucket_id`. **Modifying this attribute will force creation of a new resource.**"]
+    pub fn bucket_ids(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
+        terrars::SetRef::new(self.shared().clone(), format!("{}.bucket_ids", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `capabilities` after provisioning.\nA set of strings, each one naming a capability the key has. **Modifying this attribute will force creation of a new resource.**"]
     pub fn capabilities(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
         terrars::SetRef::new(self.shared().clone(), format!("{}.capabilities", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `expiration_timestamp` after provisioning.\nWhen present, says when this key will expire, in milliseconds since 1970."]
+    pub fn expiration_timestamp(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.expiration_timestamp", self.extract_ref()))
     }
 
     #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
@@ -177,13 +214,14 @@ impl ApplicationKey {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `key_name` after provisioning.\nThe name of the key."]
+    #[doc =
+        "Get a reference to the value of field `key_name` after provisioning.\nThe name of the key. **Modifying this attribute will force creation of a new resource.**"]
     pub fn key_name(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.key_name", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `name_prefix` after provisioning.\nWhen present, restricts access to files whose names start with the prefix."]
+        "Get a reference to the value of field `name_prefix` after provisioning.\nWhen present, restricts access to files whose names start with the prefix. **Modifying this attribute will force creation of a new resource.**"]
     pub fn name_prefix(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.name_prefix", self.extract_ref()))
     }
@@ -191,6 +229,12 @@ impl ApplicationKey {
     #[doc = "Get a reference to the value of field `options` after provisioning.\nList of application key options."]
     pub fn options(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
         terrars::SetRef::new(self.shared().clone(), format!("{}.options", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `valid_duration_in_seconds` after provisioning.\nWhen provided, the key will expire after the given number of seconds, and will have expirationTimestamp set. Value must be a positive integer, and must be less than 1000 days (in seconds). **Modifying this attribute will force creation of a new resource.**"]
+    pub fn valid_duration_in_seconds(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.valid_duration_in_seconds", self.extract_ref()))
     }
 }
 
@@ -227,9 +271,10 @@ impl terrars::Resource_ for ApplicationKey_ {
 
 pub struct BuildApplicationKey {
     pub tf_id: std::string::String,
-    #[doc = "A set of strings, each one naming a capability the key has."]
+    #[doc =
+        "A set of strings, each one naming a capability the key has. **Modifying this attribute will force creation of a new resource.**"]
     pub capabilities: terrars::SetField<terrars::PrimField<std::string::String>>,
-    #[doc = "The name of the key."]
+    #[doc = "The name of the key. **Modifying this attribute will force creation of a new resource.**"]
     pub key_name: terrars::PrimField<std::string::String>,
 }
 
@@ -238,17 +283,19 @@ impl BuildApplicationKey {
         let out = ApplicationKey(std::rc::Rc::new(ApplicationKey_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(ApplicationKeyData {
+            data: std::cell::RefCell::new(ApplicationKeyData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
                 for_each: std::option::Option::None,
                 provisioner: core::default::Default::default(),
                 bucket_id: core::default::Default::default(),
+                bucket_ids: core::default::Default::default(),
                 capabilities: self.capabilities,
                 id: core::default::Default::default(),
                 key_name: self.key_name,
                 name_prefix: core::default::Default::default(),
+                valid_duration_in_seconds: core::default::Default::default(),
             }),
         }));
         stack.add_resource(out.0.clone());
@@ -291,15 +338,27 @@ impl ApplicationKeyRef {
     }
 
     #[doc =
-        "Get a reference to the value of field `bucket_id` after provisioning.\nWhen present, restricts access to one bucket."]
+        "Get a reference to the value of field `bucket_id` after provisioning.\nWhen present, restricts access to one bucket. Conflicts with `bucket_ids`. **Modifying this attribute will force creation of a new resource.**"]
     pub fn bucket_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.bucket_id", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `capabilities` after provisioning.\nA set of strings, each one naming a capability the key has."]
+        "Get a reference to the value of field `bucket_ids` after provisioning.\nWhen provided, the new key can only access the specified buckets. Conflicts with `bucket_id`. **Modifying this attribute will force creation of a new resource.**"]
+    pub fn bucket_ids(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
+        terrars::SetRef::new(self.shared().clone(), format!("{}.bucket_ids", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `capabilities` after provisioning.\nA set of strings, each one naming a capability the key has. **Modifying this attribute will force creation of a new resource.**"]
     pub fn capabilities(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
         terrars::SetRef::new(self.shared().clone(), format!("{}.capabilities", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `expiration_timestamp` after provisioning.\nWhen present, says when this key will expire, in milliseconds since 1970."]
+    pub fn expiration_timestamp(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.expiration_timestamp", self.extract_ref()))
     }
 
     #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
@@ -307,13 +366,14 @@ impl ApplicationKeyRef {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `key_name` after provisioning.\nThe name of the key."]
+    #[doc =
+        "Get a reference to the value of field `key_name` after provisioning.\nThe name of the key. **Modifying this attribute will force creation of a new resource.**"]
     pub fn key_name(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.key_name", self.extract_ref()))
     }
 
     #[doc =
-        "Get a reference to the value of field `name_prefix` after provisioning.\nWhen present, restricts access to files whose names start with the prefix."]
+        "Get a reference to the value of field `name_prefix` after provisioning.\nWhen present, restricts access to files whose names start with the prefix. **Modifying this attribute will force creation of a new resource.**"]
     pub fn name_prefix(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.name_prefix", self.extract_ref()))
     }
@@ -321,5 +381,11 @@ impl ApplicationKeyRef {
     #[doc = "Get a reference to the value of field `options` after provisioning.\nList of application key options."]
     pub fn options(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
         terrars::SetRef::new(self.shared().clone(), format!("{}.options", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `valid_duration_in_seconds` after provisioning.\nWhen provided, the key will expire after the given number of seconds, and will have expirationTimestamp set. Value must be a positive integer, and must be less than 1000 days (in seconds). **Modifying this attribute will force creation of a new resource.**"]
+    pub fn valid_duration_in_seconds(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.valid_duration_in_seconds", self.extract_ref()))
     }
 }

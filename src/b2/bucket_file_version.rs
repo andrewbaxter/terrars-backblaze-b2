@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderB2;
 
 #[derive(Serialize)]
-struct BucketFileVersionData {
+struct BucketFileVersionData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -28,14 +30,14 @@ struct BucketFileVersionData {
     id: std::option::Option<terrars::PrimField<std::string::String>>,
     source: terrars::PrimField<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    server_side_encryption: std::option::Option<std::vec::Vec<BucketFileVersionServerSideEncryptionEl>>,
+    server_side_encryption: std::option::Option<std::vec::Vec<BucketFileVersion_ServerSideEncryption>>,
     dynamic: BucketFileVersionDynamic,
 }
 
 struct BucketFileVersion_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<BucketFileVersionData>,
+    data: std::cell::RefCell<BucketFileVersionData_>,
 }
 
 #[derive(Clone)]
@@ -135,13 +137,15 @@ impl BucketFileVersion {
         self
     }
 
-    #[doc = "Set the field `content_type`.\nContent type. If not set, it will be set based on the file extension."]
+    #[doc =
+        "Set the field `content_type`.\nContent type. If not set, it will be set based on the file extension. **Modifying this attribute will force creation of a new resource.**"]
     pub fn set_content_type(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.0.data.borrow_mut().content_type = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `file_info`.\nThe custom information that is uploaded with the file."]
+    #[doc =
+        "Set the field `file_info`.\nThe custom information that is uploaded with the file. B2 converts keys to lower case, so they are stored and returned in lower case. B2 also adds 'sse_c_key_id' to files uploaded in SSE-C mode, and 'large_file_sha1' to large files. **Modifying this attribute will force creation of a new resource.**"]
     pub fn set_file_info(
         self,
         v: impl std::convert::Into<terrars::RecField<terrars::PrimField<std::string::String>>>,
@@ -159,7 +163,7 @@ impl BucketFileVersion {
     #[doc = "Set the field `server_side_encryption`.\n"]
     pub fn set_server_side_encryption(
         self,
-        v: impl std::convert::Into<terrars::BlockAssignable<BucketFileVersionServerSideEncryptionEl>>,
+        v: impl std::convert::Into<terrars::BlockAssignable<BucketFileVersion_ServerSideEncryption>>,
     ) -> Self {
         match v.into() {
             terrars::BlockAssignable::Literal(v) => {
@@ -178,7 +182,8 @@ impl BucketFileVersion {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.action", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `bucket_id` after provisioning.\nThe ID of the bucket."]
+    #[doc =
+        "Get a reference to the value of field `bucket_id` after provisioning.\nThe ID of the bucket. **Modifying this attribute will force creation of a new resource.**"]
     pub fn bucket_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.bucket_id", self.extract_ref()))
     }
@@ -194,7 +199,7 @@ impl BucketFileVersion {
     }
 
     #[doc =
-        "Get a reference to the value of field `content_type` after provisioning.\nContent type. If not set, it will be set based on the file extension."]
+        "Get a reference to the value of field `content_type` after provisioning.\nContent type. If not set, it will be set based on the file extension. **Modifying this attribute will force creation of a new resource.**"]
     pub fn content_type(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.content_type", self.extract_ref()))
     }
@@ -206,12 +211,13 @@ impl BucketFileVersion {
     }
 
     #[doc =
-        "Get a reference to the value of field `file_info` after provisioning.\nThe custom information that is uploaded with the file."]
+        "Get a reference to the value of field `file_info` after provisioning.\nThe custom information that is uploaded with the file. B2 converts keys to lower case, so they are stored and returned in lower case. B2 also adds 'sse_c_key_id' to files uploaded in SSE-C mode, and 'large_file_sha1' to large files. **Modifying this attribute will force creation of a new resource.**"]
     pub fn file_info(&self) -> terrars::RecRef<terrars::PrimExpr<std::string::String>> {
         terrars::RecRef::new(self.shared().clone(), format!("{}.file_info", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `file_name` after provisioning.\nThe name of the B2 file."]
+    #[doc =
+        "Get a reference to the value of field `file_name` after provisioning.\nThe name of the B2 file. **Modifying this attribute will force creation of a new resource.**"]
     pub fn file_name(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.file_name", self.extract_ref()))
     }
@@ -226,7 +232,8 @@ impl BucketFileVersion {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.size", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `source` after provisioning.\nPath to the local file."]
+    #[doc =
+        "Get a reference to the value of field `source` after provisioning.\nPath to the local file. **Modifying this attribute will force creation of a new resource.**"]
     pub fn source(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.source", self.extract_ref()))
     }
@@ -238,7 +245,7 @@ impl BucketFileVersion {
     }
 
     #[doc = "Get a reference to the value of field `server_side_encryption` after provisioning.\n"]
-    pub fn server_side_encryption(&self) -> terrars::ListRef<BucketFileVersionServerSideEncryptionElRef> {
+    pub fn server_side_encryption(&self) -> terrars::ListRef<BucketFileVersion_ServerSideEncryptionRef> {
         terrars::ListRef::new(self.shared().clone(), format!("{}.server_side_encryption", self.extract_ref()))
     }
 }
@@ -276,11 +283,11 @@ impl terrars::Resource_ for BucketFileVersion_ {
 
 pub struct BuildBucketFileVersion {
     pub tf_id: std::string::String,
-    #[doc = "The ID of the bucket."]
+    #[doc = "The ID of the bucket. **Modifying this attribute will force creation of a new resource.**"]
     pub bucket_id: terrars::PrimField<std::string::String>,
-    #[doc = "The name of the B2 file."]
+    #[doc = "The name of the B2 file. **Modifying this attribute will force creation of a new resource.**"]
     pub file_name: terrars::PrimField<std::string::String>,
-    #[doc = "Path to the local file."]
+    #[doc = "Path to the local file. **Modifying this attribute will force creation of a new resource.**"]
     pub source: terrars::PrimField<std::string::String>,
 }
 
@@ -289,7 +296,7 @@ impl BuildBucketFileVersion {
         let out = BucketFileVersion(std::rc::Rc::new(BucketFileVersion_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(BucketFileVersionData {
+            data: std::cell::RefCell::new(BucketFileVersionData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
@@ -339,7 +346,8 @@ impl BucketFileVersionRef {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.action", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `bucket_id` after provisioning.\nThe ID of the bucket."]
+    #[doc =
+        "Get a reference to the value of field `bucket_id` after provisioning.\nThe ID of the bucket. **Modifying this attribute will force creation of a new resource.**"]
     pub fn bucket_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.bucket_id", self.extract_ref()))
     }
@@ -355,7 +363,7 @@ impl BucketFileVersionRef {
     }
 
     #[doc =
-        "Get a reference to the value of field `content_type` after provisioning.\nContent type. If not set, it will be set based on the file extension."]
+        "Get a reference to the value of field `content_type` after provisioning.\nContent type. If not set, it will be set based on the file extension. **Modifying this attribute will force creation of a new resource.**"]
     pub fn content_type(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.content_type", self.extract_ref()))
     }
@@ -367,12 +375,13 @@ impl BucketFileVersionRef {
     }
 
     #[doc =
-        "Get a reference to the value of field `file_info` after provisioning.\nThe custom information that is uploaded with the file."]
+        "Get a reference to the value of field `file_info` after provisioning.\nThe custom information that is uploaded with the file. B2 converts keys to lower case, so they are stored and returned in lower case. B2 also adds 'sse_c_key_id' to files uploaded in SSE-C mode, and 'large_file_sha1' to large files. **Modifying this attribute will force creation of a new resource.**"]
     pub fn file_info(&self) -> terrars::RecRef<terrars::PrimExpr<std::string::String>> {
         terrars::RecRef::new(self.shared().clone(), format!("{}.file_info", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `file_name` after provisioning.\nThe name of the B2 file."]
+    #[doc =
+        "Get a reference to the value of field `file_name` after provisioning.\nThe name of the B2 file. **Modifying this attribute will force creation of a new resource.**"]
     pub fn file_name(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.file_name", self.extract_ref()))
     }
@@ -387,7 +396,8 @@ impl BucketFileVersionRef {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.size", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `source` after provisioning.\nPath to the local file."]
+    #[doc =
+        "Get a reference to the value of field `source` after provisioning.\nPath to the local file. **Modifying this attribute will force creation of a new resource.**"]
     pub fn source(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.source", self.extract_ref()))
     }
@@ -399,35 +409,35 @@ impl BucketFileVersionRef {
     }
 
     #[doc = "Get a reference to the value of field `server_side_encryption` after provisioning.\n"]
-    pub fn server_side_encryption(&self) -> terrars::ListRef<BucketFileVersionServerSideEncryptionElRef> {
+    pub fn server_side_encryption(&self) -> terrars::ListRef<BucketFileVersion_ServerSideEncryptionRef> {
         terrars::ListRef::new(self.shared().clone(), format!("{}.server_side_encryption", self.extract_ref()))
     }
 }
 
 #[derive(Serialize)]
-pub struct BucketFileVersionServerSideEncryptionElKeyEl {
+pub struct BucketFileVersion_ServerSideEncryption_Key {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     key_id: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     secret_b64: std::option::Option<terrars::PrimField<std::string::String>>,
 }
 
-impl BucketFileVersionServerSideEncryptionElKeyEl {
-    #[doc = "Set the field `key_id`.\nKey identifier stored in file info metadata"]
+impl BucketFileVersion_ServerSideEncryption_Key {
+    #[doc = "Set the field `key_id`.\nKey identifier stored in file info metadata."]
     pub fn set_key_id(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.key_id = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `secret_b64`.\nSecret key value, in standard Base 64 encoding (RFC 4648)"]
+    #[doc = "Set the field `secret_b64`.\nSecret key value, in standard Base 64 encoding (RFC 4648)."]
     pub fn set_secret_b64(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.secret_b64 = std::option::Option::Some(v.into());
         self
     }
 }
 
-impl terrars::ToListMappable for BucketFileVersionServerSideEncryptionElKeyEl {
-    type O = terrars::BlockAssignable<BucketFileVersionServerSideEncryptionElKeyEl>;
+impl terrars::ToListMappable for BucketFileVersion_ServerSideEncryption_Key {
+    type O = terrars::BlockAssignable<BucketFileVersion_ServerSideEncryption_Key>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -438,76 +448,75 @@ impl terrars::ToListMappable for BucketFileVersionServerSideEncryptionElKeyEl {
     }
 }
 
-pub struct BuildBucketFileVersionServerSideEncryptionElKeyEl {}
+pub struct BuildBucketFileVersion_ServerSideEncryption_Key {}
 
-impl BuildBucketFileVersionServerSideEncryptionElKeyEl {
-    pub fn build(self) -> BucketFileVersionServerSideEncryptionElKeyEl {
-        BucketFileVersionServerSideEncryptionElKeyEl {
+impl BuildBucketFileVersion_ServerSideEncryption_Key {
+    pub fn build(self) -> BucketFileVersion_ServerSideEncryption_Key {
+        BucketFileVersion_ServerSideEncryption_Key {
             key_id: core::default::Default::default(),
             secret_b64: core::default::Default::default(),
         }
     }
 }
 
-pub struct BucketFileVersionServerSideEncryptionElKeyElRef {
+#[allow(dead_code)]
+pub struct BucketFileVersion_ServerSideEncryption_KeyRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for BucketFileVersionServerSideEncryptionElKeyElRef {
-    fn new(
-        shared: terrars::StackShared,
-        base: std::string::String,
-    ) -> BucketFileVersionServerSideEncryptionElKeyElRef {
-        BucketFileVersionServerSideEncryptionElKeyElRef {
+impl terrars::Ref for BucketFileVersion_ServerSideEncryption_KeyRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> BucketFileVersion_ServerSideEncryption_KeyRef {
+        BucketFileVersion_ServerSideEncryption_KeyRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl BucketFileVersionServerSideEncryptionElKeyElRef {
+impl BucketFileVersion_ServerSideEncryption_KeyRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc =
-        "Get a reference to the value of field `key_id` after provisioning.\nKey identifier stored in file info metadata"]
+        "Get a reference to the value of field `key_id` after provisioning.\nKey identifier stored in file info metadata."]
     pub fn key_id(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.key_id", self.base))
     }
 
     #[doc =
-        "Get a reference to the value of field `secret_b64` after provisioning.\nSecret key value, in standard Base 64 encoding (RFC 4648)"]
+        "Get a reference to the value of field `secret_b64` after provisioning.\nSecret key value, in standard Base 64 encoding (RFC 4648)."]
     pub fn secret_b64(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.secret_b64", self.base))
     }
 }
 
 #[derive(Serialize, Default)]
-struct BucketFileVersionServerSideEncryptionElDynamic {
-    key: std::option::Option<terrars::DynamicBlock<BucketFileVersionServerSideEncryptionElKeyEl>>,
+struct BucketFileVersion_ServerSideEncryptionDynamic {
+    key: std::option::Option<terrars::DynamicBlock<BucketFileVersion_ServerSideEncryption_Key>>,
 }
 
 #[derive(Serialize)]
-pub struct BucketFileVersionServerSideEncryptionEl {
+pub struct BucketFileVersion_ServerSideEncryption {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     algorithm: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     mode: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    key: std::option::Option<std::vec::Vec<BucketFileVersionServerSideEncryptionElKeyEl>>,
-    dynamic: BucketFileVersionServerSideEncryptionElDynamic,
+    key: std::option::Option<std::vec::Vec<BucketFileVersion_ServerSideEncryption_Key>>,
+    dynamic: BucketFileVersion_ServerSideEncryptionDynamic,
 }
 
-impl BucketFileVersionServerSideEncryptionEl {
+impl BucketFileVersion_ServerSideEncryption {
     #[doc = "Set the field `algorithm`.\nServer-side encryption algorithm. AES256 is the only one supported."]
     pub fn set_algorithm(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.algorithm = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `mode`.\nServer-side encryption mode."]
+    #[doc = "Set the field `mode`.\nServer-side encryption mode. SSE-B2 and SSE-C are supported."]
     pub fn set_mode(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.mode = std::option::Option::Some(v.into());
         self
@@ -516,7 +525,7 @@ impl BucketFileVersionServerSideEncryptionEl {
     #[doc = "Set the field `key`.\n"]
     pub fn set_key(
         mut self,
-        v: impl std::convert::Into<terrars::BlockAssignable<BucketFileVersionServerSideEncryptionElKeyEl>>,
+        v: impl std::convert::Into<terrars::BlockAssignable<BucketFileVersion_ServerSideEncryption_Key>>,
     ) -> Self {
         match v.into() {
             terrars::BlockAssignable::Literal(v) => {
@@ -530,8 +539,8 @@ impl BucketFileVersionServerSideEncryptionEl {
     }
 }
 
-impl terrars::ToListMappable for BucketFileVersionServerSideEncryptionEl {
-    type O = terrars::BlockAssignable<BucketFileVersionServerSideEncryptionEl>;
+impl terrars::ToListMappable for BucketFileVersion_ServerSideEncryption {
+    type O = terrars::BlockAssignable<BucketFileVersion_ServerSideEncryption>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -542,11 +551,11 @@ impl terrars::ToListMappable for BucketFileVersionServerSideEncryptionEl {
     }
 }
 
-pub struct BuildBucketFileVersionServerSideEncryptionEl {}
+pub struct BuildBucketFileVersion_ServerSideEncryption {}
 
-impl BuildBucketFileVersionServerSideEncryptionEl {
-    pub fn build(self) -> BucketFileVersionServerSideEncryptionEl {
-        BucketFileVersionServerSideEncryptionEl {
+impl BuildBucketFileVersion_ServerSideEncryption {
+    pub fn build(self) -> BucketFileVersion_ServerSideEncryption {
+        BucketFileVersion_ServerSideEncryption {
             algorithm: core::default::Default::default(),
             mode: core::default::Default::default(),
             key: core::default::Default::default(),
@@ -555,21 +564,23 @@ impl BuildBucketFileVersionServerSideEncryptionEl {
     }
 }
 
-pub struct BucketFileVersionServerSideEncryptionElRef {
+#[allow(dead_code)]
+pub struct BucketFileVersion_ServerSideEncryptionRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for BucketFileVersionServerSideEncryptionElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> BucketFileVersionServerSideEncryptionElRef {
-        BucketFileVersionServerSideEncryptionElRef {
+impl terrars::Ref for BucketFileVersion_ServerSideEncryptionRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> BucketFileVersion_ServerSideEncryptionRef {
+        BucketFileVersion_ServerSideEncryptionRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl BucketFileVersionServerSideEncryptionElRef {
+impl BucketFileVersion_ServerSideEncryptionRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
@@ -580,18 +591,19 @@ impl BucketFileVersionServerSideEncryptionElRef {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.algorithm", self.base))
     }
 
-    #[doc = "Get a reference to the value of field `mode` after provisioning.\nServer-side encryption mode."]
+    #[doc =
+        "Get a reference to the value of field `mode` after provisioning.\nServer-side encryption mode. SSE-B2 and SSE-C are supported."]
     pub fn mode(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.mode", self.base))
     }
 
     #[doc = "Get a reference to the value of field `key` after provisioning.\n"]
-    pub fn key(&self) -> terrars::ListRef<BucketFileVersionServerSideEncryptionElKeyElRef> {
+    pub fn key(&self) -> terrars::ListRef<BucketFileVersion_ServerSideEncryption_KeyRef> {
         terrars::ListRef::new(self.shared().clone(), format!("{}.key", self.base))
     }
 }
 
 #[derive(Serialize, Default)]
 struct BucketFileVersionDynamic {
-    server_side_encryption: std::option::Option<terrars::DynamicBlock<BucketFileVersionServerSideEncryptionEl>>,
+    server_side_encryption: std::option::Option<terrars::DynamicBlock<BucketFileVersion_ServerSideEncryption>>,
 }

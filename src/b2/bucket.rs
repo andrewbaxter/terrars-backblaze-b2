@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderB2;
 
 #[derive(Serialize)]
-struct BucketData {
+struct BucketData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -25,20 +27,20 @@ struct BucketData {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     id: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    cors_rules: std::option::Option<std::vec::Vec<BucketCorsRulesEl>>,
+    cors_rules: std::option::Option<std::vec::Vec<Bucket_CorsRules>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    default_server_side_encryption: std::option::Option<std::vec::Vec<BucketDefaultServerSideEncryptionEl>>,
+    default_server_side_encryption: std::option::Option<std::vec::Vec<Bucket_DefaultServerSideEncryption>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    file_lock_configuration: std::option::Option<std::vec::Vec<BucketFileLockConfigurationEl>>,
+    file_lock_configuration: std::option::Option<std::vec::Vec<Bucket_FileLockConfiguration>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    lifecycle_rules: std::option::Option<std::vec::Vec<BucketLifecycleRulesEl>>,
+    lifecycle_rules: std::option::Option<std::vec::Vec<Bucket_LifecycleRules>>,
     dynamic: BucketDynamic,
 }
 
 struct Bucket_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<BucketData>,
+    data: std::cell::RefCell<BucketData_>,
 }
 
 #[derive(Clone)]
@@ -138,7 +140,8 @@ impl Bucket {
         self
     }
 
-    #[doc = "Set the field `bucket_info`.\nUser-defined information to be stored with the bucket."]
+    #[doc =
+        "Set the field `bucket_info`.\nUser-defined information to be stored with the bucket. B2 converts keys to lower case, so they are stored and returned in lower case. Each key can be up to 50 bytes long, keys starting with 'b2-' are reserved, and all values together can take up to 10000 bytes."]
     pub fn set_bucket_info(
         self,
         v: impl std::convert::Into<terrars::RecField<terrars::PrimField<std::string::String>>>,
@@ -154,7 +157,7 @@ impl Bucket {
     }
 
     #[doc = "Set the field `cors_rules`.\n"]
-    pub fn set_cors_rules(self, v: impl std::convert::Into<terrars::BlockAssignable<BucketCorsRulesEl>>) -> Self {
+    pub fn set_cors_rules(self, v: impl std::convert::Into<terrars::BlockAssignable<Bucket_CorsRules>>) -> Self {
         match v.into() {
             terrars::BlockAssignable::Literal(v) => {
                 self.0.data.borrow_mut().cors_rules = std::option::Option::Some(v);
@@ -169,7 +172,7 @@ impl Bucket {
     #[doc = "Set the field `default_server_side_encryption`.\n"]
     pub fn set_default_server_side_encryption(
         self,
-        v: impl std::convert::Into<terrars::BlockAssignable<BucketDefaultServerSideEncryptionEl>>,
+        v: impl std::convert::Into<terrars::BlockAssignable<Bucket_DefaultServerSideEncryption>>,
     ) -> Self {
         match v.into() {
             terrars::BlockAssignable::Literal(v) => {
@@ -185,7 +188,7 @@ impl Bucket {
     #[doc = "Set the field `file_lock_configuration`.\n"]
     pub fn set_file_lock_configuration(
         self,
-        v: impl std::convert::Into<terrars::BlockAssignable<BucketFileLockConfigurationEl>>,
+        v: impl std::convert::Into<terrars::BlockAssignable<Bucket_FileLockConfiguration>>,
     ) -> Self {
         match v.into() {
             terrars::BlockAssignable::Literal(v) => {
@@ -201,7 +204,7 @@ impl Bucket {
     #[doc = "Set the field `lifecycle_rules`.\n"]
     pub fn set_lifecycle_rules(
         self,
-        v: impl std::convert::Into<terrars::BlockAssignable<BucketLifecycleRulesEl>>,
+        v: impl std::convert::Into<terrars::BlockAssignable<Bucket_LifecycleRules>>,
     ) -> Self {
         match v.into() {
             terrars::BlockAssignable::Literal(v) => {
@@ -226,12 +229,13 @@ impl Bucket {
     }
 
     #[doc =
-        "Get a reference to the value of field `bucket_info` after provisioning.\nUser-defined information to be stored with the bucket."]
+        "Get a reference to the value of field `bucket_info` after provisioning.\nUser-defined information to be stored with the bucket. B2 converts keys to lower case, so they are stored and returned in lower case. Each key can be up to 50 bytes long, keys starting with 'b2-' are reserved, and all values together can take up to 10000 bytes."]
     pub fn bucket_info(&self) -> terrars::RecRef<terrars::PrimExpr<std::string::String>> {
         terrars::RecRef::new(self.shared().clone(), format!("{}.bucket_info", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `bucket_name` after provisioning.\nThe name of the bucket."]
+    #[doc =
+        "Get a reference to the value of field `bucket_name` after provisioning.\nThe name of the bucket. **Modifying this attribute will force creation of a new resource.**"]
     pub fn bucket_name(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.bucket_name", self.extract_ref()))
     }
@@ -258,12 +262,12 @@ impl Bucket {
     }
 
     #[doc = "Get a reference to the value of field `cors_rules` after provisioning.\n"]
-    pub fn cors_rules(&self) -> terrars::ListRef<BucketCorsRulesElRef> {
+    pub fn cors_rules(&self) -> terrars::ListRef<Bucket_CorsRulesRef> {
         terrars::ListRef::new(self.shared().clone(), format!("{}.cors_rules", self.extract_ref()))
     }
 
     #[doc = "Get a reference to the value of field `default_server_side_encryption` after provisioning.\n"]
-    pub fn default_server_side_encryption(&self) -> terrars::ListRef<BucketDefaultServerSideEncryptionElRef> {
+    pub fn default_server_side_encryption(&self) -> terrars::ListRef<Bucket_DefaultServerSideEncryptionRef> {
         terrars::ListRef::new(
             self.shared().clone(),
             format!("{}.default_server_side_encryption", self.extract_ref()),
@@ -271,12 +275,12 @@ impl Bucket {
     }
 
     #[doc = "Get a reference to the value of field `file_lock_configuration` after provisioning.\n"]
-    pub fn file_lock_configuration(&self) -> terrars::ListRef<BucketFileLockConfigurationElRef> {
+    pub fn file_lock_configuration(&self) -> terrars::ListRef<Bucket_FileLockConfigurationRef> {
         terrars::ListRef::new(self.shared().clone(), format!("{}.file_lock_configuration", self.extract_ref()))
     }
 
     #[doc = "Get a reference to the value of field `lifecycle_rules` after provisioning.\n"]
-    pub fn lifecycle_rules(&self) -> terrars::ListRef<BucketLifecycleRulesElRef> {
+    pub fn lifecycle_rules(&self) -> terrars::ListRef<Bucket_LifecycleRulesRef> {
         terrars::ListRef::new(self.shared().clone(), format!("{}.lifecycle_rules", self.extract_ref()))
     }
 }
@@ -314,7 +318,7 @@ impl terrars::Resource_ for Bucket_ {
 
 pub struct BuildBucket {
     pub tf_id: std::string::String,
-    #[doc = "The name of the bucket."]
+    #[doc = "The name of the bucket. **Modifying this attribute will force creation of a new resource.**"]
     pub bucket_name: terrars::PrimField<std::string::String>,
     #[doc =
         "The bucket type. Either 'allPublic', meaning that files in this bucket can be downloaded by anybody, or 'allPrivate'."]
@@ -326,7 +330,7 @@ impl BuildBucket {
         let out = Bucket(std::rc::Rc::new(Bucket_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(BucketData {
+            data: std::cell::RefCell::new(BucketData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
@@ -383,12 +387,13 @@ impl BucketRef {
     }
 
     #[doc =
-        "Get a reference to the value of field `bucket_info` after provisioning.\nUser-defined information to be stored with the bucket."]
+        "Get a reference to the value of field `bucket_info` after provisioning.\nUser-defined information to be stored with the bucket. B2 converts keys to lower case, so they are stored and returned in lower case. Each key can be up to 50 bytes long, keys starting with 'b2-' are reserved, and all values together can take up to 10000 bytes."]
     pub fn bucket_info(&self) -> terrars::RecRef<terrars::PrimExpr<std::string::String>> {
         terrars::RecRef::new(self.shared().clone(), format!("{}.bucket_info", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `bucket_name` after provisioning.\nThe name of the bucket."]
+    #[doc =
+        "Get a reference to the value of field `bucket_name` after provisioning.\nThe name of the bucket. **Modifying this attribute will force creation of a new resource.**"]
     pub fn bucket_name(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.bucket_name", self.extract_ref()))
     }
@@ -415,12 +420,12 @@ impl BucketRef {
     }
 
     #[doc = "Get a reference to the value of field `cors_rules` after provisioning.\n"]
-    pub fn cors_rules(&self) -> terrars::ListRef<BucketCorsRulesElRef> {
+    pub fn cors_rules(&self) -> terrars::ListRef<Bucket_CorsRulesRef> {
         terrars::ListRef::new(self.shared().clone(), format!("{}.cors_rules", self.extract_ref()))
     }
 
     #[doc = "Get a reference to the value of field `default_server_side_encryption` after provisioning.\n"]
-    pub fn default_server_side_encryption(&self) -> terrars::ListRef<BucketDefaultServerSideEncryptionElRef> {
+    pub fn default_server_side_encryption(&self) -> terrars::ListRef<Bucket_DefaultServerSideEncryptionRef> {
         terrars::ListRef::new(
             self.shared().clone(),
             format!("{}.default_server_side_encryption", self.extract_ref()),
@@ -428,18 +433,18 @@ impl BucketRef {
     }
 
     #[doc = "Get a reference to the value of field `file_lock_configuration` after provisioning.\n"]
-    pub fn file_lock_configuration(&self) -> terrars::ListRef<BucketFileLockConfigurationElRef> {
+    pub fn file_lock_configuration(&self) -> terrars::ListRef<Bucket_FileLockConfigurationRef> {
         terrars::ListRef::new(self.shared().clone(), format!("{}.file_lock_configuration", self.extract_ref()))
     }
 
     #[doc = "Get a reference to the value of field `lifecycle_rules` after provisioning.\n"]
-    pub fn lifecycle_rules(&self) -> terrars::ListRef<BucketLifecycleRulesElRef> {
+    pub fn lifecycle_rules(&self) -> terrars::ListRef<Bucket_LifecycleRulesRef> {
         terrars::ListRef::new(self.shared().clone(), format!("{}.lifecycle_rules", self.extract_ref()))
     }
 }
 
 #[derive(Serialize)]
-pub struct BucketCorsRulesEl {
+pub struct Bucket_CorsRules {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     allowed_headers: std::option::Option<terrars::ListField<terrars::PrimField<std::string::String>>>,
     allowed_operations: terrars::ListField<terrars::PrimField<std::string::String>>,
@@ -450,7 +455,7 @@ pub struct BucketCorsRulesEl {
     max_age_seconds: terrars::PrimField<f64>,
 }
 
-impl BucketCorsRulesEl {
+impl Bucket_CorsRules {
     #[doc =
         "Set the field `allowed_headers`.\nIf present, this is a list of headers that are allowed in a pre-flight OPTIONS's request's Access-Control-Request-Headers header value."]
     pub fn set_allowed_headers(
@@ -472,8 +477,8 @@ impl BucketCorsRulesEl {
     }
 }
 
-impl terrars::ToListMappable for BucketCorsRulesEl {
-    type O = terrars::BlockAssignable<BucketCorsRulesEl>;
+impl terrars::ToListMappable for Bucket_CorsRules {
+    type O = terrars::BlockAssignable<Bucket_CorsRules>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -484,10 +489,10 @@ impl terrars::ToListMappable for BucketCorsRulesEl {
     }
 }
 
-pub struct BuildBucketCorsRulesEl {
+pub struct BuildBucket_CorsRules {
     #[doc = "A list specifying which operations the rule allows."]
     pub allowed_operations: terrars::ListField<terrars::PrimField<std::string::String>>,
-    #[doc = "A non-empty list specifying which origins the rule covers. "]
+    #[doc = "A non-empty list specifying which origins the rule covers."]
     pub allowed_origins: terrars::ListField<terrars::PrimField<std::string::String>>,
     #[doc = "A name for humans to recognize the rule in a user interface."]
     pub cors_rule_name: terrars::PrimField<std::string::String>,
@@ -496,9 +501,9 @@ pub struct BuildBucketCorsRulesEl {
     pub max_age_seconds: terrars::PrimField<f64>,
 }
 
-impl BuildBucketCorsRulesEl {
-    pub fn build(self) -> BucketCorsRulesEl {
-        BucketCorsRulesEl {
+impl BuildBucket_CorsRules {
+    pub fn build(self) -> Bucket_CorsRules {
+        Bucket_CorsRules {
             allowed_headers: core::default::Default::default(),
             allowed_operations: self.allowed_operations,
             allowed_origins: self.allowed_origins,
@@ -509,21 +514,23 @@ impl BuildBucketCorsRulesEl {
     }
 }
 
-pub struct BucketCorsRulesElRef {
+#[allow(dead_code)]
+pub struct Bucket_CorsRulesRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for BucketCorsRulesElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> BucketCorsRulesElRef {
-        BucketCorsRulesElRef {
+impl terrars::Ref for Bucket_CorsRulesRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> Bucket_CorsRulesRef {
+        Bucket_CorsRulesRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl BucketCorsRulesElRef {
+impl Bucket_CorsRulesRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
@@ -541,7 +548,7 @@ impl BucketCorsRulesElRef {
     }
 
     #[doc =
-        "Get a reference to the value of field `allowed_origins` after provisioning.\nA non-empty list specifying which origins the rule covers. "]
+        "Get a reference to the value of field `allowed_origins` after provisioning.\nA non-empty list specifying which origins the rule covers."]
     pub fn allowed_origins(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
         terrars::ListRef::new(self.shared().clone(), format!("{}.allowed_origins", self.base))
     }
@@ -566,29 +573,29 @@ impl BucketCorsRulesElRef {
 }
 
 #[derive(Serialize)]
-pub struct BucketDefaultServerSideEncryptionEl {
+pub struct Bucket_DefaultServerSideEncryption {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     algorithm: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     mode: std::option::Option<terrars::PrimField<std::string::String>>,
 }
 
-impl BucketDefaultServerSideEncryptionEl {
+impl Bucket_DefaultServerSideEncryption {
     #[doc = "Set the field `algorithm`.\nServer-side encryption algorithm. AES256 is the only one supported."]
     pub fn set_algorithm(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.algorithm = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc = "Set the field `mode`.\nServer-side encryption mode."]
+    #[doc = "Set the field `mode`.\nServer-side encryption mode. SSE-B2 is the only supported bucket default."]
     pub fn set_mode(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.mode = std::option::Option::Some(v.into());
         self
     }
 }
 
-impl terrars::ToListMappable for BucketDefaultServerSideEncryptionEl {
-    type O = terrars::BlockAssignable<BucketDefaultServerSideEncryptionEl>;
+impl terrars::ToListMappable for Bucket_DefaultServerSideEncryption {
+    type O = terrars::BlockAssignable<Bucket_DefaultServerSideEncryption>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -599,32 +606,34 @@ impl terrars::ToListMappable for BucketDefaultServerSideEncryptionEl {
     }
 }
 
-pub struct BuildBucketDefaultServerSideEncryptionEl {}
+pub struct BuildBucket_DefaultServerSideEncryption {}
 
-impl BuildBucketDefaultServerSideEncryptionEl {
-    pub fn build(self) -> BucketDefaultServerSideEncryptionEl {
-        BucketDefaultServerSideEncryptionEl {
+impl BuildBucket_DefaultServerSideEncryption {
+    pub fn build(self) -> Bucket_DefaultServerSideEncryption {
+        Bucket_DefaultServerSideEncryption {
             algorithm: core::default::Default::default(),
             mode: core::default::Default::default(),
         }
     }
 }
 
-pub struct BucketDefaultServerSideEncryptionElRef {
+#[allow(dead_code)]
+pub struct Bucket_DefaultServerSideEncryptionRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for BucketDefaultServerSideEncryptionElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> BucketDefaultServerSideEncryptionElRef {
-        BucketDefaultServerSideEncryptionElRef {
+impl terrars::Ref for Bucket_DefaultServerSideEncryptionRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> Bucket_DefaultServerSideEncryptionRef {
+        Bucket_DefaultServerSideEncryptionRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl BucketDefaultServerSideEncryptionElRef {
+impl Bucket_DefaultServerSideEncryptionRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
@@ -635,22 +644,23 @@ impl BucketDefaultServerSideEncryptionElRef {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.algorithm", self.base))
     }
 
-    #[doc = "Get a reference to the value of field `mode` after provisioning.\nServer-side encryption mode."]
+    #[doc =
+        "Get a reference to the value of field `mode` after provisioning.\nServer-side encryption mode. SSE-B2 is the only supported bucket default."]
     pub fn mode(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.mode", self.base))
     }
 }
 
 #[derive(Serialize)]
-pub struct BucketFileLockConfigurationElDefaultRetentionElPeriodEl {
+pub struct Bucket_FileLockConfiguration_DefaultRetention_Period {
     duration: terrars::PrimField<f64>,
     unit: terrars::PrimField<std::string::String>,
 }
 
-impl BucketFileLockConfigurationElDefaultRetentionElPeriodEl { }
+impl Bucket_FileLockConfiguration_DefaultRetention_Period { }
 
-impl terrars::ToListMappable for BucketFileLockConfigurationElDefaultRetentionElPeriodEl {
-    type O = terrars::BlockAssignable<BucketFileLockConfigurationElDefaultRetentionElPeriodEl>;
+impl terrars::ToListMappable for Bucket_FileLockConfiguration_DefaultRetention_Period {
+    type O = terrars::BlockAssignable<Bucket_FileLockConfiguration_DefaultRetention_Period>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -661,78 +671,75 @@ impl terrars::ToListMappable for BucketFileLockConfigurationElDefaultRetentionEl
     }
 }
 
-pub struct BuildBucketFileLockConfigurationElDefaultRetentionElPeriodEl {
-    #[doc = "Duration"]
+pub struct BuildBucket_FileLockConfiguration_DefaultRetention_Period {
+    #[doc = "Duration."]
     pub duration: terrars::PrimField<f64>,
-    #[doc = "Unit for duration (days|years)"]
+    #[doc = "Unit for duration (days|years)."]
     pub unit: terrars::PrimField<std::string::String>,
 }
 
-impl BuildBucketFileLockConfigurationElDefaultRetentionElPeriodEl {
-    pub fn build(self) -> BucketFileLockConfigurationElDefaultRetentionElPeriodEl {
-        BucketFileLockConfigurationElDefaultRetentionElPeriodEl {
+impl BuildBucket_FileLockConfiguration_DefaultRetention_Period {
+    pub fn build(self) -> Bucket_FileLockConfiguration_DefaultRetention_Period {
+        Bucket_FileLockConfiguration_DefaultRetention_Period {
             duration: self.duration,
             unit: self.unit,
         }
     }
 }
 
-pub struct BucketFileLockConfigurationElDefaultRetentionElPeriodElRef {
+#[allow(dead_code)]
+pub struct Bucket_FileLockConfiguration_DefaultRetention_PeriodRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for BucketFileLockConfigurationElDefaultRetentionElPeriodElRef {
+impl terrars::Ref for Bucket_FileLockConfiguration_DefaultRetention_PeriodRef {
     fn new(
         shared: terrars::StackShared,
         base: std::string::String,
-    ) -> BucketFileLockConfigurationElDefaultRetentionElPeriodElRef {
-        BucketFileLockConfigurationElDefaultRetentionElPeriodElRef {
+    ) -> Bucket_FileLockConfiguration_DefaultRetention_PeriodRef {
+        Bucket_FileLockConfiguration_DefaultRetention_PeriodRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl BucketFileLockConfigurationElDefaultRetentionElPeriodElRef {
+impl Bucket_FileLockConfiguration_DefaultRetention_PeriodRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
-    #[doc = "Get a reference to the value of field `duration` after provisioning.\nDuration"]
+    #[doc = "Get a reference to the value of field `duration` after provisioning.\nDuration."]
     pub fn duration(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.duration", self.base))
     }
 
-    #[doc = "Get a reference to the value of field `unit` after provisioning.\nUnit for duration (days|years)"]
+    #[doc = "Get a reference to the value of field `unit` after provisioning.\nUnit for duration (days|years)."]
     pub fn unit(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.unit", self.base))
     }
 }
 
 #[derive(Serialize, Default)]
-struct BucketFileLockConfigurationElDefaultRetentionElDynamic {
-    period: std::option::Option<terrars::DynamicBlock<BucketFileLockConfigurationElDefaultRetentionElPeriodEl>>,
+struct Bucket_FileLockConfiguration_DefaultRetentionDynamic {
+    period: std::option::Option<terrars::DynamicBlock<Bucket_FileLockConfiguration_DefaultRetention_Period>>,
 }
 
 #[derive(Serialize)]
-pub struct BucketFileLockConfigurationElDefaultRetentionEl {
+pub struct Bucket_FileLockConfiguration_DefaultRetention {
     mode: terrars::PrimField<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    period: std::option::Option<std::vec::Vec<BucketFileLockConfigurationElDefaultRetentionElPeriodEl>>,
-    dynamic: BucketFileLockConfigurationElDefaultRetentionElDynamic,
+    period: std::option::Option<std::vec::Vec<Bucket_FileLockConfiguration_DefaultRetention_Period>>,
+    dynamic: Bucket_FileLockConfiguration_DefaultRetentionDynamic,
 }
 
-impl BucketFileLockConfigurationElDefaultRetentionEl {
+impl Bucket_FileLockConfiguration_DefaultRetention {
     #[doc = "Set the field `period`.\n"]
     pub fn set_period(
         mut self,
-        v:
-            impl
-
-                    std
-                    ::convert
-                    ::Into<terrars::BlockAssignable<BucketFileLockConfigurationElDefaultRetentionElPeriodEl>>,
+        v: impl std::convert::Into<terrars::BlockAssignable<Bucket_FileLockConfiguration_DefaultRetention_Period>>,
     ) -> Self {
         match v.into() {
             terrars::BlockAssignable::Literal(v) => {
@@ -746,8 +753,8 @@ impl BucketFileLockConfigurationElDefaultRetentionEl {
     }
 }
 
-impl terrars::ToListMappable for BucketFileLockConfigurationElDefaultRetentionEl {
-    type O = terrars::BlockAssignable<BucketFileLockConfigurationElDefaultRetentionEl>;
+impl terrars::ToListMappable for Bucket_FileLockConfiguration_DefaultRetention {
+    type O = terrars::BlockAssignable<Bucket_FileLockConfiguration_DefaultRetention>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -758,14 +765,14 @@ impl terrars::ToListMappable for BucketFileLockConfigurationElDefaultRetentionEl
     }
 }
 
-pub struct BuildBucketFileLockConfigurationElDefaultRetentionEl {
+pub struct BuildBucket_FileLockConfiguration_DefaultRetention {
     #[doc = "Default retention mode (compliance|governance|none)."]
     pub mode: terrars::PrimField<std::string::String>,
 }
 
-impl BuildBucketFileLockConfigurationElDefaultRetentionEl {
-    pub fn build(self) -> BucketFileLockConfigurationElDefaultRetentionEl {
-        BucketFileLockConfigurationElDefaultRetentionEl {
+impl BuildBucket_FileLockConfiguration_DefaultRetention {
+    pub fn build(self) -> Bucket_FileLockConfiguration_DefaultRetention {
+        Bucket_FileLockConfiguration_DefaultRetention {
             mode: self.mode,
             period: core::default::Default::default(),
             dynamic: core::default::Default::default(),
@@ -773,24 +780,26 @@ impl BuildBucketFileLockConfigurationElDefaultRetentionEl {
     }
 }
 
-pub struct BucketFileLockConfigurationElDefaultRetentionElRef {
+#[allow(dead_code)]
+pub struct Bucket_FileLockConfiguration_DefaultRetentionRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for BucketFileLockConfigurationElDefaultRetentionElRef {
+impl terrars::Ref for Bucket_FileLockConfiguration_DefaultRetentionRef {
     fn new(
         shared: terrars::StackShared,
         base: std::string::String,
-    ) -> BucketFileLockConfigurationElDefaultRetentionElRef {
-        BucketFileLockConfigurationElDefaultRetentionElRef {
+    ) -> Bucket_FileLockConfiguration_DefaultRetentionRef {
+        Bucket_FileLockConfiguration_DefaultRetentionRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl BucketFileLockConfigurationElDefaultRetentionElRef {
+impl Bucket_FileLockConfiguration_DefaultRetentionRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
@@ -802,28 +811,28 @@ impl BucketFileLockConfigurationElDefaultRetentionElRef {
     }
 
     #[doc = "Get a reference to the value of field `period` after provisioning.\n"]
-    pub fn period(&self) -> terrars::ListRef<BucketFileLockConfigurationElDefaultRetentionElPeriodElRef> {
+    pub fn period(&self) -> terrars::ListRef<Bucket_FileLockConfiguration_DefaultRetention_PeriodRef> {
         terrars::ListRef::new(self.shared().clone(), format!("{}.period", self.base))
     }
 }
 
 #[derive(Serialize, Default)]
-struct BucketFileLockConfigurationElDynamic {
-    default_retention: std::option::Option<terrars::DynamicBlock<BucketFileLockConfigurationElDefaultRetentionEl>>,
+struct Bucket_FileLockConfigurationDynamic {
+    default_retention: std::option::Option<terrars::DynamicBlock<Bucket_FileLockConfiguration_DefaultRetention>>,
 }
 
 #[derive(Serialize)]
-pub struct BucketFileLockConfigurationEl {
+pub struct Bucket_FileLockConfiguration {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     is_file_lock_enabled: std::option::Option<terrars::PrimField<bool>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    default_retention: std::option::Option<std::vec::Vec<BucketFileLockConfigurationElDefaultRetentionEl>>,
-    dynamic: BucketFileLockConfigurationElDynamic,
+    default_retention: std::option::Option<std::vec::Vec<Bucket_FileLockConfiguration_DefaultRetention>>,
+    dynamic: Bucket_FileLockConfigurationDynamic,
 }
 
-impl BucketFileLockConfigurationEl {
+impl Bucket_FileLockConfiguration {
     #[doc =
-        "Set the field `is_file_lock_enabled`.\nIf present, the boolean value specifies whether bucket is File Lock-enabled. Defaults to `false`."]
+        "Set the field `is_file_lock_enabled`.\nIf present, the boolean value specifies whether bucket is File Lock-enabled. Defaults to `false`. **Modifying this attribute will force creation of a new resource.**"]
     pub fn set_is_file_lock_enabled(mut self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
         self.is_file_lock_enabled = std::option::Option::Some(v.into());
         self
@@ -832,7 +841,7 @@ impl BucketFileLockConfigurationEl {
     #[doc = "Set the field `default_retention`.\n"]
     pub fn set_default_retention(
         mut self,
-        v: impl std::convert::Into<terrars::BlockAssignable<BucketFileLockConfigurationElDefaultRetentionEl>>,
+        v: impl std::convert::Into<terrars::BlockAssignable<Bucket_FileLockConfiguration_DefaultRetention>>,
     ) -> Self {
         match v.into() {
             terrars::BlockAssignable::Literal(v) => {
@@ -846,8 +855,8 @@ impl BucketFileLockConfigurationEl {
     }
 }
 
-impl terrars::ToListMappable for BucketFileLockConfigurationEl {
-    type O = terrars::BlockAssignable<BucketFileLockConfigurationEl>;
+impl terrars::ToListMappable for Bucket_FileLockConfiguration {
+    type O = terrars::BlockAssignable<Bucket_FileLockConfiguration>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -858,11 +867,11 @@ impl terrars::ToListMappable for BucketFileLockConfigurationEl {
     }
 }
 
-pub struct BuildBucketFileLockConfigurationEl {}
+pub struct BuildBucket_FileLockConfiguration {}
 
-impl BuildBucketFileLockConfigurationEl {
-    pub fn build(self) -> BucketFileLockConfigurationEl {
-        BucketFileLockConfigurationEl {
+impl BuildBucket_FileLockConfiguration {
+    pub fn build(self) -> Bucket_FileLockConfiguration {
+        Bucket_FileLockConfiguration {
             is_file_lock_enabled: core::default::Default::default(),
             default_retention: core::default::Default::default(),
             dynamic: core::default::Default::default(),
@@ -870,51 +879,65 @@ impl BuildBucketFileLockConfigurationEl {
     }
 }
 
-pub struct BucketFileLockConfigurationElRef {
+#[allow(dead_code)]
+pub struct Bucket_FileLockConfigurationRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for BucketFileLockConfigurationElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> BucketFileLockConfigurationElRef {
-        BucketFileLockConfigurationElRef {
+impl terrars::Ref for Bucket_FileLockConfigurationRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> Bucket_FileLockConfigurationRef {
+        Bucket_FileLockConfigurationRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl BucketFileLockConfigurationElRef {
+impl Bucket_FileLockConfigurationRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
     #[doc =
-        "Get a reference to the value of field `is_file_lock_enabled` after provisioning.\nIf present, the boolean value specifies whether bucket is File Lock-enabled. Defaults to `false`."]
+        "Get a reference to the value of field `is_file_lock_enabled` after provisioning.\nIf present, the boolean value specifies whether bucket is File Lock-enabled. Defaults to `false`. **Modifying this attribute will force creation of a new resource.**"]
     pub fn is_file_lock_enabled(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.is_file_lock_enabled", self.base))
     }
 
     #[doc = "Get a reference to the value of field `default_retention` after provisioning.\n"]
-    pub fn default_retention(&self) -> terrars::ListRef<BucketFileLockConfigurationElDefaultRetentionElRef> {
+    pub fn default_retention(&self) -> terrars::ListRef<Bucket_FileLockConfiguration_DefaultRetentionRef> {
         terrars::ListRef::new(self.shared().clone(), format!("{}.default_retention", self.base))
     }
 }
 
 #[derive(Serialize)]
-pub struct BucketLifecycleRulesEl {
+pub struct Bucket_LifecycleRules {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     days_from_hiding_to_deleting: std::option::Option<terrars::PrimField<f64>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    days_from_starting_to_canceling_unfinished_large_files: std::option::Option<terrars::PrimField<f64>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     days_from_uploading_to_hiding: std::option::Option<terrars::PrimField<f64>>,
     file_name_prefix: terrars::PrimField<std::string::String>,
 }
 
-impl BucketLifecycleRulesEl {
+impl Bucket_LifecycleRules {
     #[doc =
         "Set the field `days_from_hiding_to_deleting`.\nIt says how long to keep file versions that are not the current version."]
     pub fn set_days_from_hiding_to_deleting(mut self, v: impl std::convert::Into<terrars::PrimField<f64>>) -> Self {
         self.days_from_hiding_to_deleting = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `days_from_starting_to_canceling_unfinished_large_files`.\nIt cancels any unfinished large file versions after a given number of days."]
+    pub fn set_days_from_starting_to_canceling_unfinished_large_files(
+        mut self,
+        v: impl std::convert::Into<terrars::PrimField<f64>>,
+    ) -> Self {
+        self.days_from_starting_to_canceling_unfinished_large_files = std::option::Option::Some(v.into());
         self
     }
 
@@ -926,8 +949,8 @@ impl BucketLifecycleRulesEl {
     }
 }
 
-impl terrars::ToListMappable for BucketLifecycleRulesEl {
-    type O = terrars::BlockAssignable<BucketLifecycleRulesEl>;
+impl terrars::ToListMappable for Bucket_LifecycleRules {
+    type O = terrars::BlockAssignable<Bucket_LifecycleRules>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -938,36 +961,39 @@ impl terrars::ToListMappable for BucketLifecycleRulesEl {
     }
 }
 
-pub struct BuildBucketLifecycleRulesEl {
+pub struct BuildBucket_LifecycleRules {
     #[doc = "It specifies which files in the bucket it applies to."]
     pub file_name_prefix: terrars::PrimField<std::string::String>,
 }
 
-impl BuildBucketLifecycleRulesEl {
-    pub fn build(self) -> BucketLifecycleRulesEl {
-        BucketLifecycleRulesEl {
+impl BuildBucket_LifecycleRules {
+    pub fn build(self) -> Bucket_LifecycleRules {
+        Bucket_LifecycleRules {
             days_from_hiding_to_deleting: core::default::Default::default(),
+            days_from_starting_to_canceling_unfinished_large_files: core::default::Default::default(),
             days_from_uploading_to_hiding: core::default::Default::default(),
             file_name_prefix: self.file_name_prefix,
         }
     }
 }
 
-pub struct BucketLifecycleRulesElRef {
+#[allow(dead_code)]
+pub struct Bucket_LifecycleRulesRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for BucketLifecycleRulesElRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> BucketLifecycleRulesElRef {
-        BucketLifecycleRulesElRef {
+impl terrars::Ref for Bucket_LifecycleRulesRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> Bucket_LifecycleRulesRef {
+        Bucket_LifecycleRulesRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl BucketLifecycleRulesElRef {
+impl Bucket_LifecycleRulesRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
@@ -976,6 +1002,15 @@ impl BucketLifecycleRulesElRef {
         "Get a reference to the value of field `days_from_hiding_to_deleting` after provisioning.\nIt says how long to keep file versions that are not the current version."]
     pub fn days_from_hiding_to_deleting(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.days_from_hiding_to_deleting", self.base))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `days_from_starting_to_canceling_unfinished_large_files` after provisioning.\nIt cancels any unfinished large file versions after a given number of days."]
+    pub fn days_from_starting_to_canceling_unfinished_large_files(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(
+            self.shared().clone(),
+            format!("{}.days_from_starting_to_canceling_unfinished_large_files", self.base),
+        )
     }
 
     #[doc =
@@ -993,8 +1028,8 @@ impl BucketLifecycleRulesElRef {
 
 #[derive(Serialize, Default)]
 struct BucketDynamic {
-    cors_rules: std::option::Option<terrars::DynamicBlock<BucketCorsRulesEl>>,
-    default_server_side_encryption: std::option::Option<terrars::DynamicBlock<BucketDefaultServerSideEncryptionEl>>,
-    file_lock_configuration: std::option::Option<terrars::DynamicBlock<BucketFileLockConfigurationEl>>,
-    lifecycle_rules: std::option::Option<terrars::DynamicBlock<BucketLifecycleRulesEl>>,
+    cors_rules: std::option::Option<terrars::DynamicBlock<Bucket_CorsRules>>,
+    default_server_side_encryption: std::option::Option<terrars::DynamicBlock<Bucket_DefaultServerSideEncryption>>,
+    file_lock_configuration: std::option::Option<terrars::DynamicBlock<Bucket_FileLockConfiguration>>,
+    lifecycle_rules: std::option::Option<terrars::DynamicBlock<Bucket_LifecycleRules>>,
 }
