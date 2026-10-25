@@ -443,6 +443,14 @@ impl BucketRef {
     }
 }
 
+#[derive(Serialize, Default)]
+struct BucketDynamic {
+    cors_rules: std::option::Option<terrars::DynamicBlock<Bucket_CorsRules>>,
+    default_server_side_encryption: std::option::Option<terrars::DynamicBlock<Bucket_DefaultServerSideEncryption>>,
+    file_lock_configuration: std::option::Option<terrars::DynamicBlock<Bucket_FileLockConfiguration>>,
+    lifecycle_rules: std::option::Option<terrars::DynamicBlock<Bucket_LifecycleRules>>,
+}
+
 #[derive(Serialize)]
 pub struct Bucket_CorsRules {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -1024,12 +1032,4 @@ impl Bucket_LifecycleRulesRef {
     pub fn file_name_prefix(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.file_name_prefix", self.base))
     }
-}
-
-#[derive(Serialize, Default)]
-struct BucketDynamic {
-    cors_rules: std::option::Option<terrars::DynamicBlock<Bucket_CorsRules>>,
-    default_server_side_encryption: std::option::Option<terrars::DynamicBlock<Bucket_DefaultServerSideEncryption>>,
-    file_lock_configuration: std::option::Option<terrars::DynamicBlock<Bucket_FileLockConfiguration>>,
-    lifecycle_rules: std::option::Option<terrars::DynamicBlock<Bucket_LifecycleRules>>,
 }

@@ -269,6 +269,11 @@ impl BucketNotificationRulesRef {
     }
 }
 
+#[derive(Serialize, Default)]
+struct BucketNotificationRulesDynamic {
+    notification_rules: std::option::Option<terrars::DynamicBlock<BucketNotificationRules_NotificationRules>>,
+}
+
 #[derive(Serialize)]
 pub struct BucketNotificationRules_NotificationRules_TargetConfiguration_CustomHeaders {
     name: terrars::PrimField<std::string::String>,
@@ -632,9 +637,4 @@ impl BucketNotificationRules_NotificationRulesRef {
     ) -> terrars::ListRef<BucketNotificationRules_NotificationRules_TargetConfigurationRef> {
         terrars::ListRef::new(self.shared().clone(), format!("{}.target_configuration", self.base))
     }
-}
-
-#[derive(Serialize, Default)]
-struct BucketNotificationRulesDynamic {
-    notification_rules: std::option::Option<terrars::DynamicBlock<BucketNotificationRules_NotificationRules>>,
 }

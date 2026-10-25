@@ -414,6 +414,11 @@ impl BucketFileVersionRef {
     }
 }
 
+#[derive(Serialize, Default)]
+struct BucketFileVersionDynamic {
+    server_side_encryption: std::option::Option<terrars::DynamicBlock<BucketFileVersion_ServerSideEncryption>>,
+}
+
 #[derive(Serialize)]
 pub struct BucketFileVersion_ServerSideEncryption_Key {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -601,9 +606,4 @@ impl BucketFileVersion_ServerSideEncryptionRef {
     pub fn key(&self) -> terrars::ListRef<BucketFileVersion_ServerSideEncryption_KeyRef> {
         terrars::ListRef::new(self.shared().clone(), format!("{}.key", self.base))
     }
-}
-
-#[derive(Serialize, Default)]
-struct BucketFileVersionDynamic {
-    server_side_encryption: std::option::Option<terrars::DynamicBlock<BucketFileVersion_ServerSideEncryption>>,
 }
